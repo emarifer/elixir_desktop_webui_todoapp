@@ -10,5 +10,7 @@ defmodule TodoDesktopapp.Repo.Migrations.CreateTodos do
 
       timestamps(type: :utc_datetime)
     end
+
+    create index(:todos, [:title])
   end
 end
