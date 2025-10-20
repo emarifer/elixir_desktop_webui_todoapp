@@ -8,6 +8,8 @@ defmodule TodoDesktopapp.Todos do
 
   alias TodoDesktopapp.Todos.Todo
 
+  # @topic "todos"
+
   @doc """
   Returns the list of todos.
 
@@ -18,7 +20,9 @@ defmodule TodoDesktopapp.Todos do
 
   """
   def list_todos do
-    Repo.all(Todo)
+    Todo
+    |> order_by(desc: :updated_at)
+    |> Repo.all()
   end
 
   @doc """
@@ -85,8 +89,14 @@ defmodule TodoDesktopapp.Todos do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_todo(%Todo{} = todo) do
-    Repo.delete(todo)
+  def delete_todo(id) do
+    with %Todo{} = result <- Repo.get(Todo, id),
+         {:ok, todo_deleted} <- Repo.delete(result) do
+      {:ok, todo_deleted}
+    else
+      nil -> nil
+      {:error, err} -> {:error, err}
+    end
   end
 
   @doc """
@@ -101,4 +111,8 @@ defmodule TodoDesktopapp.Todos do
   def change_todo(%Todo{} = todo, attrs \\ %{}) do
     Todo.changeset(todo, attrs)
   end
+
+  # def subscribe do
+  #   Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic)
+  # end
 end

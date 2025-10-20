@@ -14,10 +14,16 @@ defmodule TodoDesktopappWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # scope "/", TodoDesktopappWeb do
+  #   pipe_through :browser
+
+  #   get "/", PageController, :home
+  # end
+
   scope "/", TodoDesktopappWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive
   end
 
   # Other scopes may use custom stacks.
