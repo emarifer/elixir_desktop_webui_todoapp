@@ -7,46 +7,56 @@ defmodule TodoDesktopappWeb.HomeLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.flash_group flash={@flash} />
+    <section
+      class="transition-all duration-[1000ms] opacity-0 -translate-x-16"
+      phx-mounted={JS.remove_class("opacity-0 -translate-x-16")}
+    >
+      <Layouts.flash_group flash={@flash} />
 
-    <section class="flex flex-col pt-20 justify-center text-center gap-12 mx-auto w-fit px-48">
-      <div class="absolute top-2 left-2">
-        <Layouts.theme_toggle />
-      </div>
-      <div class="w-96 flex gap-6 items-center justify-center">
-        <h1 class="text-4xl text-zinc-500 font-bold">Todo List</h1>
-        <img src="images/logo.png" alt="Logo" class="w-12" />
-      </div>
+      <div class="flex flex-col pt-20 justify-center text-center gap-12 mx-auto w-fit px-48">
+        <div class="absolute top-2 left-2">
+          <Layouts.theme_toggle />
+        </div>
+        <div class="w-96 flex gap-6 items-center justify-center">
+          <h1 class="text-4xl text-zinc-500 font-bold">Todo List</h1>
+          <img src="images/logo.png" alt="Logo" class="w-12" />
+        </div>
 
-      <div class="flex flex-col gap-12">
-        <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller">
-          <.live_component :for={todo <- @todos} module={TodoItemComponent} id={todo.id} todo={todo} />
-        </ul>
+        <div class="flex flex-col gap-12">
+          <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller">
+            <.live_component
+              :for={todo <- @todos}
+              module={TodoItemComponent}
+              id={todo.id}
+              todo={todo}
+            />
+          </ul>
 
-        <p :if={length(@todos) == 0} class="text-sm font-light text-lime-400">
-          You don't have any Todo yet
-        </p>
+          <p :if={length(@todos) == 0} class="text-sm font-light text-lime-400">
+            You don't have any Todo yet
+          </p>
 
-        <form phx-submit="add" class="flex flex-col gap-4 px-8 w-full">
-          <input
-            type="text"
-            class="input input-sm w-full"
-            name="title"
-            placeholder="Title ..."
-            required
-            autofocus
-          />
-          <input
-            type="text"
-            class="input input-sm w-full"
-            name="description"
-            placeholder="Description ..."
-            required
-          />
-          <div class="flex justify-end">
-            <button type="submit" class="btn btn-ghost btn-sm btn-outline">Create</button>
-          </div>
-        </form>
+          <form phx-submit="add" class="flex flex-col gap-4 px-8 w-full">
+            <input
+              type="text"
+              class="input input-sm w-full"
+              name="title"
+              placeholder="Title ..."
+              required
+              autofocus
+            />
+            <input
+              type="text"
+              class="input input-sm w-full"
+              name="description"
+              placeholder="Description ..."
+              required
+            />
+            <div class="flex justify-end">
+              <button type="submit" class="btn btn-ghost btn-sm btn-outline">Create</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
     """

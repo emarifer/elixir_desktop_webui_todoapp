@@ -1,5 +1,6 @@
 defmodule TodoDesktopappWeb.TodoItemComponent do
   use TodoDesktopappWeb, :live_component
+  alias TodoDesktopapp.Todos
 
   @impl true
   def render(assigns) do
@@ -10,11 +11,25 @@ defmodule TodoDesktopappWeb.TodoItemComponent do
     >
       <div>
         <div class="flex justify-start gap-2 items-center mb-2">
-          <input type="checkbox" class="checkbox checkbox-success w-3.5 h-3.5" />
-          <p class="text-xs text-zinc-300 hover:underline">{@todo.title}</p>
+          <input
+            type="checkbox"
+            checked={@todo.done}
+            class="checkbox checkbox-success w-3.5 h-3.5 pointer-events-none"
+          />
+          <p
+            class={[
+              "text-xs text-zinc-300",
+              @todo.done && "line-through"
+            ]}
+            title={
+              "• Title: #{@todo.title}\n• Description: #{@todo.description}"
+              }
+          >
+            {@todo.title}
+          </p>
         </div>
         <p class="text-lime-400 text-[10px] font-mono overflow-hidden">
-          {convert_datetime(@todo.updated_at)}
+          {Todos.convert_datetime(@todo.updated_at)}
         </p>
       </div>
       <div class="flex justify-start items-center gap-3 w-fit">
@@ -27,20 +42,19 @@ defmodule TodoDesktopappWeb.TodoItemComponent do
         >
           ❌
         </button>
-        <button title="Edit Todo" class="btn btn-circle btn-outline btn-xs btn-ghost text-[10px]">
+        <.link
+          navigate={~p"/edit/#{@todo.id}"}
+          title="Edit Todo"
+          class="btn btn-circle btn-outline btn-xs btn-ghost text-[10px]"
+        >
           📝
-        </button>
+        </.link>
       </div>
     </li>
     """
   end
-
-  def convert_datetime(dt) do
-    tzone = Timex.Timezone.Local.lookup()
-
-    {:ok, local_datetime} =
-      Timex.to_datetime(dt, tzone) |> Timex.Format.DateTime.Formatter.format("{RFC1123}")
-
-    local_datetime
-  end
 end
+
+# REFERENCES: DAISYUI - TOOLTIP MULTILINE
+# https://github.com/saadeghi/daisyui/issues/84#issuecomment-1429597264
+# tooltip tooltip-right  before:whitespace-pre-wrap before:[--tw-content:'line1_\a_line2'

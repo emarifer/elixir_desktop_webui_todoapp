@@ -21,7 +21,7 @@ defmodule TodoDesktopapp.Todos do
   """
   def list_todos do
     Todo
-    |> order_by(desc: :updated_at)
+    |> order_by(desc: :inserted_at)
     |> Repo.all()
   end
 
@@ -39,7 +39,7 @@ defmodule TodoDesktopapp.Todos do
       ** (Ecto.NoResultsError)
 
   """
-  def get_todo!(id), do: Repo.get!(Todo, id)
+  def get_todo(id), do: Repo.get(Todo, id)
 
   @doc """
   Creates a todo.
@@ -110,6 +110,15 @@ defmodule TodoDesktopapp.Todos do
   """
   def change_todo(%Todo{} = todo, attrs \\ %{}) do
     Todo.changeset(todo, attrs)
+  end
+
+  def convert_datetime(dt) do
+    tzone = Timex.Timezone.Local.lookup()
+
+    {:ok, local_datetime} =
+      Timex.to_datetime(dt, tzone) |> Timex.Format.DateTime.Formatter.format("{RFC1123}")
+
+    local_datetime
   end
 
   # def subscribe do

@@ -24,6 +24,7 @@ defmodule TodoDesktopappWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
+    live "/edit/:id", EditLive
   end
 
   # Other scopes may use custom stacks.
