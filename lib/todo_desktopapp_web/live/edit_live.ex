@@ -24,6 +24,7 @@ defmodule TodoDesktopappWeb.EditLive do
             placeholder="Title ..."
             value={@todo_edit.title}
             maxlength="25"
+            minlength="3"
             required
             autofocus
           />
