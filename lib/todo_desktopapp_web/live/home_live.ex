@@ -22,6 +22,66 @@ defmodule TodoDesktopappWeb.HomeLive do
           <img src="images/logo.png" alt="Logo" class="w-12" />
         </div>
 
+        <%!-- ↓↓ id={@form_id} ↓↓--%>
+        <.form
+          phx-submit="search"
+          for={@form}
+          class="flex justify-between items-center"
+        >
+          <label :if={length(@todos) > 1} class="input input-sm flex items-center-safe w-[264px] pr-1">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <.input
+              type="search"
+              id="search_form"
+              field={@form[:search]}
+              class="w-56"
+              placeholder="Search Todo ..."
+              phx-hook=".ClearSearchInput"
+            />
+            <script
+              :type={Phoenix.LiveView.ColocatedHook}
+              name=".ClearSearchInput"
+            >
+              export default {
+                mounted() {
+                  this.el.addEventListener("search", () => {
+                    if (this.el.value == "") this.pushEvent("reset-search", {})
+                  })
+                }
+              }
+            </script>
+          </label>
+          <button
+            :if={!@search}
+            phx-click="delete_marked"
+            type="button"
+            title="Delete Marked"
+            class="btn btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
+            data-confirm="Are you sure you want to delete all the marked Todos?"
+          >
+            <img src="images/bulk-delete.png" alt="Bulk Delete" class="w-6" />
+          </button>
+          <button
+            :if={@search}
+            type="reset"
+            class="btn btn-sm btn-outline btn-info flex items-center gap-1 w-fit px-1"
+            phx-click="reset-search"
+          >
+            <.icon class="bg-slate-400 w-4 mt-1" name="hero-arrow-uturn-left" /> Exit Search
+          </button>
+        </.form>
+
         <div class="flex flex-col gap-12">
           <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller">
             <.live_component
@@ -33,10 +93,10 @@ defmodule TodoDesktopappWeb.HomeLive do
           </ul>
 
           <p :if={length(@todos) == 0} class="text-sm font-light text-lime-400">
-            You don't have any Todo yet
+            There are no Todos to display
           </p>
 
-          <form phx-submit="add" class="flex flex-col gap-4 px-8 w-full">
+          <form :if={!@search} phx-submit="add" class="flex flex-col gap-4 px-8 w-full">
             <input
               type="text"
               class="input input-sm w-full"
@@ -64,11 +124,27 @@ defmodule TodoDesktopappWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    todos = Todos.list_todos()
-    {:ok, assign(socket, :todos, todos)}
+    {:ok, init_search_form(socket)}
   end
 
   @impl true
+  def handle_event("search", params, socket) do
+    case params do
+      %{"search" => ""} ->
+        {:noreply, socket}
+
+      %{"search" => search} ->
+        {:noreply, push_patch(socket, to: ~p"/?#{[search: search]}")}
+    end
+  end
+
+  def handle_event("reset-search", _params, socket) do
+    {:noreply,
+     socket
+     |> init_search_form()
+     |> push_patch(to: ~p"/")}
+  end
+
   def handle_event(
         "add",
         %{"description" => _description, "title" => _title} = unsigned_params,
@@ -76,8 +152,6 @@ defmodule TodoDesktopappWeb.HomeLive do
       ) do
     case Todos.create_todo(unsigned_params) do
       {:ok, result} ->
-        # todos = Todos.list_todos()
-
         socket = put_flash(socket, :info, "Todo created successfully!")
         {:noreply, assign(socket, :todos, [result | socket.assigns[:todos]])}
 
@@ -107,7 +181,62 @@ defmodule TodoDesktopappWeb.HomeLive do
     end
   end
 
+  def handle_event("delete_marked", _unsigned_params, socket) do
+    case Todos.delete_marked() do
+      {:ok, _} ->
+        {:noreply,
+         put_flash(socket, :info, "Bulk delete successfully performed!")
+         |> assign(:todos, remove_marked(socket.assigns[:todos]))}
+
+      _ ->
+        {:noreply, put_flash(socket, :error, "Error deleting Todo!")}
+    end
+  end
+
+  @impl true
+  def handle_params(params, _uri, socket) do
+    search =
+      case params do
+        %{"search" => _search} -> true
+        _ -> nil
+      end
+
+    # Avoid 2 requests to the database when the component is mounted.
+    # See below for details on whether or not to double-request the DB.
+    if connected?(socket) do
+      todos = Todos.search_todos_by_name(params)
+
+      {:noreply,
+       socket
+       |> assign(:todos, todos)
+       |> assign(:search, search)}
+    else
+      {:noreply, assign(socket, :todos, [])}
+    end
+  end
+
+  defp init_search_form(socket) do
+    socket
+    |> assign(
+      form: to_form(%{"search" => ""}),
+      # form_id: "form-#{System.unique_integer()}",
+      search: nil
+    )
+  end
+
   defp remove_item(todo_list, id) do
     Enum.reject(todo_list, &(&1.id == id))
   end
+
+  defp remove_marked(todo_list) do
+    Enum.reject(todo_list, &(&1.done == true))
+  end
 end
+
+# REFERENCES:
+# ABOUT THE COLOCATED HOOKS ==>
+# https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.ColocatedHook.html
+
+# Trouble resetting a LiveView form programmatically ==>
+# https://elixirforum.com/t/trouble-resetting-a-liveview-form-programmatically/67532
+# https://github.com/LostKobrakai/kobrakai_elixir/blob/main/lib/kobrakai_web/live/one_to_many_form.ex#L143-L152

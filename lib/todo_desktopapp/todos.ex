@@ -25,6 +25,22 @@ defmodule TodoDesktopapp.Todos do
     |> Repo.all()
   end
 
+  def search_todos_by_name(params) do
+    case params do
+      %{"search" => search_term} ->
+        Todo
+        |> where(
+          [t],
+          like(t.title, ^"%#{search_term}%")
+        )
+        |> order_by(desc: :inserted_at)
+        |> Repo.all()
+
+      _ ->
+        list_todos()
+    end
+  end
+
   @doc """
   Gets a single todo.
 
@@ -93,10 +109,18 @@ defmodule TodoDesktopapp.Todos do
     with %Todo{} = result <- Repo.get(Todo, id),
          {:ok, todo_deleted} <- Repo.delete(result) do
       {:ok, todo_deleted}
-    else
-      nil -> nil
-      {:error, err} -> {:error, err}
+      # else
+      #   nil -> nil
+      #   {:error, err} -> {:error, err}
     end
+  end
+
+  def delete_marked do
+    queryable = from(t in Todo, where: t.done == true)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.delete_all(:delete_all, queryable)
+    |> Repo.transact()
   end
 
   @doc """

@@ -44,7 +44,7 @@ defmodule TodoDesktopappWeb.TodoItemComponent do
         </button>
         <.link
           navigate={~p"/edit/#{@todo.id}"}
-          title="Edit Todo"
+          title="Show/Edit Todo"
           class="btn btn-circle btn-outline btn-xs btn-ghost text-[10px]"
         >
           📝
