@@ -8,7 +8,8 @@ defmodule TodoDesktopapp.MenuBar do
 
   alias Desktop.Window
 
-  # @topic "language"
+  @topic_m "modal"
+  # @topic_l "language"
 
   @impl true
   def render(assigns) do
@@ -19,12 +20,12 @@ defmodule TodoDesktopapp.MenuBar do
       </menu>
       <menu label="Extra">
         <item onclick="notification">Show Notification</item>
-        <item onclick="browser">Open Browser</item>
+        <item onclick="about">Open About</item>
       </menu>
-      <menu label="Language">
+      <%!-- <menu label="Language">
         <item onclick="english">English</item>
         <item onclick="spanish">Spanish</item>
-      </menu>
+      </menu> --%>
     </menubar>
     """
   end
@@ -53,9 +54,8 @@ defmodule TodoDesktopapp.MenuBar do
     {:noreply, menu}
   end
 
-  def handle_event("browser", menu) do
-    Window.prepare_url(TodoDesktopappWeb.Endpoint.url())
-    |> :wx_misc.launchDefaultBrowser()
+  def handle_event("about", menu) do
+    Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_m, :about)
 
     {:noreply, menu}
   end
@@ -63,6 +63,10 @@ defmodule TodoDesktopapp.MenuBar do
   @impl true
   def handle_info(:changed, menu) do
     {:noreply, menu}
+  end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_m)
   end
 end
 

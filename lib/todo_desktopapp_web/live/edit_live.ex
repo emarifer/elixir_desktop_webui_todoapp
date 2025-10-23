@@ -70,6 +70,8 @@ defmodule TodoDesktopappWeb.EditLive do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
+    TodoDesktopapp.MenuBar.subscribe()
+
     case Todos.get_todo(id) do
       nil ->
         {:ok, put_flash(socket, :error, "Error getting the Todo!")}
@@ -77,6 +79,11 @@ defmodule TodoDesktopappWeb.EditLive do
       todo ->
         {:ok, assign(socket, [{:todo_edit, todo}, {:edit, nil}])}
     end
+  end
+
+  @impl true
+  def handle_info(:about, socket) do
+    {:noreply, push_event(socket, "about", %{})}
   end
 
   @impl true

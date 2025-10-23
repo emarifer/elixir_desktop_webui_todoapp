@@ -56,6 +56,7 @@ defmodule TodoDesktopappWeb.HomeLive do
               placeholder="Search Todo ..."
               phx-hook=".ClearSearchInput"
             />
+            <%!-- ↓↓↓ Web app only. Not for desktop app ↓↓↓ --%>
             <script
               :type={Phoenix.LiveView.ColocatedHook}
               name=".ClearSearchInput"
@@ -135,11 +136,16 @@ defmodule TodoDesktopappWeb.HomeLive do
     """
   end
 
-  # ↑↑↑ SIZE: 635 x 540 px ↑↑↑
-
   @impl true
   def mount(_params, _session, socket) do
+    TodoDesktopapp.MenuBar.subscribe()
+
     {:ok, init_search_form(socket)}
+  end
+
+  @impl true
+  def handle_info(:about, socket) do
+    {:noreply, push_event(socket, "about", %{})}
   end
 
   @impl true

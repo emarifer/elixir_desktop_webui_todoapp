@@ -18,6 +18,7 @@
 // To load it, simply add a second `<link>` to your `root.html.heex` file.
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
+import Swal from 'sweetalert2'
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
 import {Socket} from "phoenix"
@@ -37,6 +38,52 @@ topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
 window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
 window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
+// Compared to a javascript window.confirm, the custom dialog does not block
+// javascript execution. Therefore to make this work as expected we store
+// the successful confirmation as an attribute and re-trigger the click event.
+// On the second click, the `data-confirm-resolved` attribute is set and we proceed.
+// SEE: https://hexdocs.pm/phoenix_live_view/Phoenix.Component.html#link/1-overriding-the-default-confirm-behaviour
+const RESOLVED_ATTRIBUTE = "data-confirm-resolved";
+// listen on document.body, so it's executed before the default of
+// phoenix_html, which is listening on the window object
+document.body.addEventListener('phoenix.link.click', function (e) {
+  // Prevent default implementation
+  e.stopPropagation();
+  // Introduce alternative implementation
+  var message = e.target.getAttribute("data-confirm");
+  if(!message){ return; }
+
+  // Confirm is resolved execute the click event
+  if (e.target?.hasAttribute(RESOLVED_ATTRIBUTE)) {
+    e.target.removeAttribute(RESOLVED_ATTRIBUTE);
+    return;
+  }
+
+  // Confirm is needed, preventDefault and show your modal
+  e.preventDefault();
+  e.target?.setAttribute(RESOLVED_ATTRIBUTE, "");
+
+  Swal.fire({
+      title: 'Confirm',
+      text: message,
+      icon: 'question',
+      background: '#1D232A',
+      color: 'oklch(0.746477 0.0216 264.436)',
+      showCancelButton: true,
+      confirmButtonColor: '#7ccf00',
+      cancelButtonColor: 'oklch(0.7176 0.221 22.18)',
+      confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+      if(result.isConfirmed) {
+        e.target?.click();
+      } else {
+        // Customer canceled
+        e.target?.removeAttribute(RESOLVED_ATTRIBUTE);
+      }
+  })
+
+}, false);
+
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 
@@ -45,6 +92,39 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+
+window.addEventListener("phx:about", (e) => {
+  Swal.fire({
+    html: `
+          <h1 class="text-2xl text-sky-600 font-bold">
+            About
+          </h1>
+
+          <h3 class="text-sm font-medium text-amber-600 mt-6">
+            Todolist WebUI Desktopapp is a simple task manager so you don't forget anything 😀
+          </h3>
+          <p class="text-slate-500 font-medium mt-4">
+            More Info:
+          </p>
+          <a
+            class="hover:text-sky-500 ease-in duration-300 text-sm"
+            href="https://github.com/emarifer/elixir_desktop_webui_todoapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://github.com/emarifer/elixir_desktop_webui_todoapp
+          </a>
+          
+          <a href="https://github.com/emarifer?tab=repositories" target="_blank" rel="noopener noreferrer" class="block mt-4 text-[11px]">
+            ⚡ Made by emarifer&nbsp;&nbsp;|&nbsp;&nbsp;Copyright © ${new Date().getFullYear()} - MIT Licensed
+          </a>
+          `,
+    icon: 'info',
+    background: '#1D232A',
+    color: 'oklch(0.746477 0.0216 264.436)',
+    confirmButtonColor: 'oklch(.554 .046 257.417)'
+  });
+})
 
 // The lines below enable quality of life phoenix_live_reload
 // development features:

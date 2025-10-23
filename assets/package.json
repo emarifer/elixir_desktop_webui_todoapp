@@ -14,5 +14,8 @@
   "devDependencies": {
     "daisyui": "^5.3.2",
     "tailwindcss": "^4.1.14"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.26.3"
   }
 }

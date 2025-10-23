@@ -10,8 +10,7 @@ defmodule TodoDesktopapp.Application do
     children = [
       TodoDesktopappWeb.Telemetry,
       TodoDesktopapp.Repo,
-      {Ecto.Migrator,
-       repos: Application.fetch_env!(:todo_desktopapp, :ecto_repos), skip: skip_migrations?()},
+      {Ecto.Migrator, repos: Application.fetch_env!(:todo_desktopapp, :ecto_repos), skip: false},
       {DNSCluster, query: Application.get_env(:todo_desktopapp, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: TodoDesktopapp.PubSub},
       # Start a worker by calling: TodoDesktopapp.Worker.start_link(arg)
@@ -44,8 +43,8 @@ defmodule TodoDesktopapp.Application do
     :ok
   end
 
-  defp skip_migrations?() do
-    # By default, sqlite migrations are run when using a release
-    System.get_env("RELEASE_NAME") == nil
-  end
+  # defp skip_migrations?() do
+  #   # By default, sqlite migrations are run when using a release
+  #   System.get_env("RELEASE_NAME") == nil
+  # end
 end

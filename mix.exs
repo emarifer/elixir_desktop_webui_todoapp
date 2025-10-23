@@ -16,9 +16,9 @@ defmodule TodoDesktopapp.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      package: package(),
       compilers: [:phoenix_live_view] ++ Mix.compilers(),
       listeners: [Phoenix.CodeReloader],
+      package: package(),
       releases: [
         default: [
           applications: [runtime_tools: :permanent, ssl: :permanent],
@@ -111,9 +111,9 @@ defmodule TodoDesktopapp.MixProject do
 
   defp package() do
     [
-      maintainers: ["emarifer"],
-      licenses: ["MIT"],
-      name: "Todolist WebUI Desktopapp",
+      # maintainers: ["emarifer"],
+      # licenses: ["MIT"],
+      name: "Todolist_WebUI_Desktopapp",
       name_long: "Todolist WebUI Desktopapp",
       description: "Cross-Platform Desktop App Demo built on Phoenix",
       description_long: "Cross-Platform Desktop App Demo built on Phoenix",
