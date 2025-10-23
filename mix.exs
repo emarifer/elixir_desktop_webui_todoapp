@@ -18,7 +18,13 @@ defmodule TodoDesktopapp.MixProject do
       deps: deps(),
       package: package(),
       compilers: [:phoenix_live_view] ++ Mix.compilers(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      releases: [
+        default: [
+          applications: [runtime_tools: :permanent, ssl: :permanent],
+          steps: [:assemble, &Desktop.Deployment.generate_installer/1]
+        ]
+      ]
     ]
   end
 
@@ -70,7 +76,9 @@ defmodule TodoDesktopapp.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:desktop, github: "elixir-desktop/desktop"},
+      {:desktop_deployment, github: "elixir-desktop/deployment", runtimes: false}
     ]
   end
 
@@ -109,7 +117,7 @@ defmodule TodoDesktopapp.MixProject do
       name_long: "Todolist WebUI Desktopapp",
       description: "Cross-Platform Desktop App Demo built on Phoenix",
       description_long: "Cross-Platform Desktop App Demo built on Phoenix",
-      icon: "priv/static/images/icon.png",
+      icon: "priv/static/images/logo.png",
       # https://developer.gnome.org/menu-spec/#additional-category-registry
       category_gnome: "GNOME;GTK;Office;",
       category_macos: "public.app-category.productivity",

@@ -92,7 +92,7 @@ defmodule TodoDesktopappWeb.HomeLive do
         </.form>
 
         <div class="flex flex-col gap-12">
-          <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller">
+          <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller pr-2">
             <.live_component
               :for={todo <- @todos}
               module={TodoItemComponent}

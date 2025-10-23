@@ -13,14 +13,18 @@ config :todo_desktopapp,
 
 # Configures the endpoint
 config :todo_desktopapp, TodoDesktopappWeb.Endpoint,
-  url: [host: "localhost"],
+  # url: [host: "localhost"],
+  # Step 1: set the port number to 0, so the port can be chosen automatically.
+  http: [ip: {127, 0, 0, 1}, port: 0],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [html: TodoDesktopappWeb.ErrorHTML, json: TodoDesktopappWeb.ErrorJSON],
     layout: false
   ],
   pubsub_server: TodoDesktopapp.PubSub,
-  live_view: [signing_salt: "OCeLUES+"]
+  live_view: [signing_salt: "OCeLUES+"],
+  # Step 2: start endpoint automatically, so we have no need to start it manually.
+  server: true
 
 # Configure esbuild (the version is required)
 config :esbuild,

@@ -1,5 +1,7 @@
 defmodule TodoDesktopappWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :todo_desktopapp
+  # use Phoenix.Endpoint, otp_app: :todo_desktopapp
+  # Step 1: Change the endpoint as a `Desktop` endpoint.
+  use Desktop.Endpoint, otp_app: :todo_desktopapp
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -46,5 +48,8 @@ defmodule TodoDesktopappWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  # Step 2: Add `Desktop.Auth` plug to ensure that only requests from
+  # the Desktop app's WebView are allowed.
+  plug Desktop.Auth
   plug TodoDesktopappWeb.Router
 end

@@ -17,7 +17,17 @@ defmodule TodoDesktopapp.Application do
       # Start a worker by calling: TodoDesktopapp.Worker.start_link(arg)
       # {TodoDesktopapp.Worker, arg},
       # Start to serve requests, typically the last entry
-      TodoDesktopappWeb.Endpoint
+      TodoDesktopappWeb.Endpoint,
+      {Desktop.Window,
+       [
+         app: :todo_desktopapp,
+         id: TodoDesktopappWindow,
+         title: "Todolist WebUI Desktopapp",
+         size: {635, 550},
+         icon: "static/images/logo.png",
+         menubar: TodoDesktopapp.MenuBar,
+         url: &TodoDesktopappWeb.Endpoint.url/0
+       ]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
