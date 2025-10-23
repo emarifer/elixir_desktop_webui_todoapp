@@ -13,13 +13,13 @@ defmodule TodoDesktopappWeb.HomeLive do
     >
       <Layouts.flash_group flash={@flash} />
 
-      <div class="flex flex-col pt-20 justify-center text-center gap-12 mx-auto w-fit px-48">
+      <div class="flex flex-col pt-10 sm:pt-20 justify-center text-center gap-6 sm:gap-12 mx-auto w-fit px-12 sm:px-48">
         <div class="absolute top-2 left-2">
           <Layouts.theme_toggle />
         </div>
-        <div class="w-96 flex gap-6 items-center justify-center">
-          <h1 class="text-4xl text-zinc-500 font-bold">Todo List</h1>
-          <img src="images/logo.png" alt="Logo" class="w-12" />
+        <div class="w-80 sm:w-96 flex gap-6 items-center justify-center">
+          <h1 class="text-3xl sm:text-4xl text-zinc-500 font-bold">Todo List</h1>
+          <img src="images/logo.png" alt="Logo" class="w-8 sm:w-12" />
         </div>
 
         <%!-- ↓↓ id={@form_id} ↓↓--%>
@@ -28,8 +28,15 @@ defmodule TodoDesktopappWeb.HomeLive do
           for={@form}
           class="flex justify-between items-center"
         >
-          <label :if={length(@todos) > 1} class="input input-sm flex items-center-safe w-[264px] pr-1">
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <label
+            :if={length(@todos) > 1}
+            class="input input-xs sm:input-sm flex items-center-safe w-[264px] px-1"
+          >
+            <svg
+              class="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
               <g
                 stroke-linejoin="round"
                 stroke-linecap="round"
@@ -45,7 +52,7 @@ defmodule TodoDesktopappWeb.HomeLive do
               type="search"
               id="search_form"
               field={@form[:search]}
-              class="w-56"
+              class="w-56 text-[9px] -translate-y-[5px] sm:translate-y-0 sm:text-xs"
               placeholder="Search Todo ..."
               phx-hook=".ClearSearchInput"
             />
@@ -67,7 +74,7 @@ defmodule TodoDesktopappWeb.HomeLive do
             phx-click="delete_marked"
             type="button"
             title="Delete Marked"
-            class="btn btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
+            class="btn btn-xs sm:btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
             data-confirm="Are you sure you want to delete all the marked Todos?"
           >
             <img src="images/bulk-delete.png" alt="Bulk Delete" class="w-6" />
@@ -75,10 +82,12 @@ defmodule TodoDesktopappWeb.HomeLive do
           <button
             :if={@search}
             type="reset"
-            class="btn btn-sm btn-outline btn-info flex items-center gap-1 w-fit px-1"
+            title="Exit Search"
+            class="btn btn-xs sm:btn-sm btn-outline btn-info flex items-center gap-1 w-fit px-1"
             phx-click="reset-search"
           >
-            <.icon class="bg-slate-400 w-4 mt-1" name="hero-arrow-uturn-left" /> Exit Search
+            <.icon class="bg-slate-400 w-4 mt-1" name="hero-arrow-uturn-left" />
+            <span class="hidden sm:block">Exit Search</span>
           </button>
         </.form>
 
@@ -96,10 +105,14 @@ defmodule TodoDesktopappWeb.HomeLive do
             There are no Todos to display
           </p>
 
-          <form :if={!@search} phx-submit="add" class="flex flex-col gap-4 px-8 w-full">
+          <form
+            :if={!@search}
+            phx-submit="add"
+            class="flex flex-col gap-2.5 sm:gap-4 px-8 w-full -mt-6 sm:mt-0"
+          >
             <input
               type="text"
-              class="input input-sm w-full"
+              class="input input-xs sm:input-sm w-full"
               name="title"
               placeholder="Title ..."
               required
@@ -107,13 +120,13 @@ defmodule TodoDesktopappWeb.HomeLive do
             />
             <input
               type="text"
-              class="input input-sm w-full"
+              class="input input-xs sm:input-sm w-full"
               name="description"
               placeholder="Description ..."
               required
             />
             <div class="flex justify-end">
-              <button type="submit" class="btn btn-ghost btn-sm btn-outline">Create</button>
+              <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">Create</button>
             </div>
           </form>
         </div>
@@ -121,6 +134,8 @@ defmodule TodoDesktopappWeb.HomeLive do
     </section>
     """
   end
+
+  # ↑↑↑ SIZE: 635 x 540 px ↑↑↑
 
   @impl true
   def mount(_params, _session, socket) do

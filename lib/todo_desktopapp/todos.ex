@@ -115,6 +115,7 @@ defmodule TodoDesktopapp.Todos do
     end
   end
 
+  # ↓↓↓ See REFERENCES below ↓↓↓
   def delete_marked do
     queryable = from(t in Todo, where: t.done == true)
 
@@ -149,3 +150,8 @@ defmodule TodoDesktopapp.Todos do
   #   Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic)
   # end
 end
+
+# REFERENCES:
+# Ecto.Multi.delete_all/4 ==>
+# https://hexdocs.pm/ecto/Ecto.Multi.html#delete_all/4
+# https://elixirforum.com/t/ecto-delete-a-record-without-selecting-first/20024/3

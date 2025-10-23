@@ -161,3 +161,10 @@
 .scroller:hover {
     scrollbar-color: #45556c transparent;
 }
+
+/* add cursor pointer & margin left on the closing cross of the search input */
+/* https://stackoverflow.com/questions/47041672/change-the-color-of-the-clear-button-x-in-input-type-search#75715124 */
+form input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+  margin-left: 1rem;
+}
