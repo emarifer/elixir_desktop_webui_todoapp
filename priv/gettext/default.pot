@@ -1,0 +1,254 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new messages manually only if they're dynamic
+## messages that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#
+msgid ""
+msgstr ""
+
+#: lib/todo_desktopapp_web/components/core_components.ex:342
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/todo_desktopapp_web/components/layouts.ex:99
+#: lib/todo_desktopapp_web/components/layouts.ex:111
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:27
+#: lib/todo_desktopapp/menu_bar.ex:121
+#, elixir-autogen, elixir-format
+msgid "English"
+msgstr ""
+
+#: lib/todo_desktopapp_web/components/layouts.ex:106
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:28
+#: lib/todo_desktopapp/menu_bar.ex:122
+#, elixir-autogen, elixir-format
+msgid "Spanish"
+msgstr ""
+
+#: lib/todo_desktopapp_web/components/layouts.ex:94
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr ""
+
+#: lib/todo_desktopapp_web/components/core_components.ex:74
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:40
+#: lib/todo_desktopapp/menu_bar.ex:44
+#: lib/todo_desktopapp/menu_bar.ex:82
+#: lib/todo_desktopapp/menu_bar.ex:93
+#, elixir-autogen, elixir-format
+msgid "Todolist WebUI Desktopapp"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:22
+#: lib/todo_desktopapp/menu_bar.ex:113
+#, elixir-autogen, elixir-format
+msgid "Extra"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:19
+#: lib/todo_desktopapp/menu_bar.ex:111
+#, elixir-autogen, elixir-format
+msgid "File"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:26
+#: lib/todo_desktopapp/menu_bar.ex:119
+#, elixir-autogen, elixir-format
+msgid "Language"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:24
+#: lib/todo_desktopapp/menu_bar.ex:117
+#, elixir-autogen, elixir-format
+msgid "Open About"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:20
+#: lib/todo_desktopapp/menu_bar.ex:112
+#, elixir-autogen, elixir-format
+msgid "Quit"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:23
+#: lib/todo_desktopapp/menu_bar.ex:116
+#, elixir-autogen, elixir-format
+msgid "Show Notification"
+msgstr ""
+
+#: lib/todo_desktopapp/menu_bar.ex:61
+#, elixir-autogen, elixir-format
+msgid "Notification from Todolist WebUI Desktopapp!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:24
+#, elixir-autogen, elixir-format
+msgid "Todo List"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:19
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:49
+#, elixir-autogen, elixir-format
+msgid "Show/Edit Todo"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:231
+#, elixir-autogen, elixir-format
+msgid "Bulk delete successfully performed!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:139
+#, elixir-autogen, elixir-format
+msgid "Create"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:81
+#, elixir-autogen, elixir-format
+msgid "Delete Marked"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:36
+#: lib/todo_desktopapp_web/live/home_live.ex:134
+#, elixir-autogen, elixir-format
+msgid "Description ..."
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:222
+#: lib/todo_desktopapp_web/live/home_live.ex:235
+#, elixir-autogen, elixir-format
+msgid "Error deleting Todo!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:94
+#: lib/todo_desktopapp_web/live/home_live.ex:99
+#, elixir-autogen, elixir-format
+msgid "Exit Search"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:60
+#, elixir-autogen, elixir-format
+msgid "Search Todo ..."
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:27
+#: lib/todo_desktopapp_web/live/home_live.ex:126
+#, elixir-autogen, elixir-format
+msgid "Title ..."
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:209
+#, elixir-autogen, elixir-format
+msgid "Title:"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:198
+#, elixir-autogen, elixir-format
+msgid "Todo created successfully!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:217
+#, elixir-autogen, elixir-format
+msgid "Todo successfully deleted!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:42
+#, elixir-autogen, elixir-format
+msgid "Delete Todo"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:27
+#, elixir-autogen, elixir-format
+msgid "• Description:"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:27
+#, elixir-autogen, elixir-format
+msgid "• Title:"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:68
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:50
+#, elixir-autogen, elixir-format
+msgid "Status:"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:60
+#, elixir-autogen, elixir-format
+msgid "Toggle Edit"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:64
+#, elixir-autogen, elixir-format
+msgid "Update"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:141
+#, elixir-autogen, elixir-format
+msgid "Error updating Todo!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/edit_live.ex:137
+#, elixir-autogen, elixir-format
+msgid "Todo updated successfully!"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:84
+#, elixir-autogen, elixir-format
+msgid "Confirm^Yes, delete it!^Cancel^Are you sure you want to delete all the marked Todos?"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:40
+#, elixir-autogen, elixir-format
+msgid "Confirm^Yes, delete it!^Cancel^Are you sure you want to delete this Todo with title"
+msgstr ""
+
+#: lib/todo_desktopapp_web/utils/generate_about_modal.ex:7
+#, elixir-autogen, elixir-format
+msgid "About"
+msgstr ""
+
+#: lib/todo_desktopapp_web/utils/generate_about_modal.ex:26
+#, elixir-autogen, elixir-format
+msgid "MIT Licensed"
+msgstr ""
+
+#: lib/todo_desktopapp_web/utils/generate_about_modal.ex:26
+#, elixir-autogen, elixir-format
+msgid "Made by"
+msgstr ""
+
+#: lib/todo_desktopapp_web/utils/generate_about_modal.ex:14
+#, elixir-autogen, elixir-format
+msgid "More Info:"
+msgstr ""
+
+#: lib/todo_desktopapp_web/utils/generate_about_modal.ex:11
+#, elixir-autogen, elixir-format
+msgid "Todolist WebUI Desktopapp is a simple task manager so you don't forget anything 😀"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:114
+#, elixir-autogen, elixir-format
+msgid "There are no Todos to display"
+msgstr ""

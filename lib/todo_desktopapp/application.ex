@@ -7,6 +7,8 @@ defmodule TodoDesktopapp.Application do
 
   @impl true
   def start(_type, _args) do
+    # Desktop.identify_default_locale(TodoDesktopappWeb.Gettext)
+
     children = [
       TodoDesktopappWeb.Telemetry,
       TodoDesktopapp.Repo,

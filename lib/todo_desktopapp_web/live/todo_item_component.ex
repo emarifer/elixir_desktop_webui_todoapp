@@ -1,5 +1,7 @@
 defmodule TodoDesktopappWeb.TodoItemComponent do
   use TodoDesktopappWeb, :live_component
+  use Gettext, backend: TodoDesktopappWeb.Gettext
+
   alias TodoDesktopapp.Todos
 
   @impl true
@@ -22,7 +24,7 @@ defmodule TodoDesktopappWeb.TodoItemComponent do
               @todo.done && "line-through"
             ]}
             title={
-              "• Title: #{@todo.title}\n• Description: #{@todo.description}"
+              "#{gettext("• Title:")} #{@todo.title}\n#{gettext("• Description:")} #{@todo.description}"
               }
           >
             {@todo.title}
@@ -35,16 +37,16 @@ defmodule TodoDesktopappWeb.TodoItemComponent do
       <div class="flex justify-start items-center gap-3 w-fit">
         <button
           phx-value-id={@todo.id}
-          data-confirm={"Are you sure you want to delete this Todo with title \"#{@todo.title}\"?"}
+          data-confirm={"#{gettext("Confirm^Yes, delete it!^Cancel^Are you sure you want to delete this Todo with title")} \"#{@todo.title}\"?"}
           phx-click="remove"
-          title="Delete Todo"
+          title={gettext("Delete Todo")}
           class="btn btn-circle btn-outline btn-xs btn-ghost text-[10px]"
         >
           ❌
         </button>
         <.link
           navigate={~p"/edit/#{@todo.id}"}
-          title="Show/Edit Todo"
+          title={gettext("Show/Edit Todo")}
           class="btn btn-circle btn-outline btn-xs btn-ghost text-[10px]"
         >
           📝

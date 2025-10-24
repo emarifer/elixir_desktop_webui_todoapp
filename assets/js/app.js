@@ -50,7 +50,7 @@ document.body.addEventListener('phoenix.link.click', function (e) {
   // Prevent default implementation
   e.stopPropagation();
   // Introduce alternative implementation
-  var message = e.target.getAttribute("data-confirm");
+  var message = e.target.getAttribute("data-confirm").split("^");
   if(!message){ return; }
 
   // Confirm is resolved execute the click event
@@ -64,15 +64,16 @@ document.body.addEventListener('phoenix.link.click', function (e) {
   e.target?.setAttribute(RESOLVED_ATTRIBUTE, "");
 
   Swal.fire({
-      title: 'Confirm',
-      text: message,
+      title: message[0],
+      text: message[3],
       icon: 'question',
       background: '#1D232A',
       color: 'oklch(0.746477 0.0216 264.436)',
       showCancelButton: true,
       confirmButtonColor: '#7ccf00',
       cancelButtonColor: 'oklch(0.7176 0.221 22.18)',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: message[1],
+      cancelButtonText: message[2]
   }).then((result) => {
       if(result.isConfirmed) {
         e.target?.click();
@@ -95,30 +96,7 @@ window.liveSocket = liveSocket
 
 window.addEventListener("phx:about", (e) => {
   Swal.fire({
-    html: `
-          <h1 class="text-2xl text-sky-600 font-bold">
-            About
-          </h1>
-
-          <h3 class="text-sm font-medium text-amber-600 mt-6">
-            Todolist WebUI Desktopapp is a simple task manager so you don't forget anything 😀
-          </h3>
-          <p class="text-slate-500 font-medium mt-4">
-            More Info:
-          </p>
-          <a
-            class="hover:text-sky-500 ease-in duration-300 text-sm"
-            href="https://github.com/emarifer/elixir_desktop_webui_todoapp"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            https://github.com/emarifer/elixir_desktop_webui_todoapp
-          </a>
-          
-          <a href="https://github.com/emarifer?tab=repositories" target="_blank" rel="noopener noreferrer" class="block mt-4 text-[11px]">
-            ⚡ Made by emarifer&nbsp;&nbsp;|&nbsp;&nbsp;Copyright © ${new Date().getFullYear()} - MIT Licensed
-          </a>
-          `,
+    html: e.detail.html,
     icon: 'info',
     background: '#1D232A',
     color: 'oklch(0.746477 0.0216 264.436)',

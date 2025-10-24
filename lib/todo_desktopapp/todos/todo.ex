@@ -26,6 +26,7 @@ end
 
 # COMMANDS:
 # mix phx.gen.context Todos Todo todos title:string description:string done:boolean
+# mix phx.gen.context Locales Locale locales language:string
 # mix ecto.migrate
 
 # REFERENCES:

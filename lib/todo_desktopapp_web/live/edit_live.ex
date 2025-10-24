@@ -1,8 +1,9 @@
 defmodule TodoDesktopappWeb.EditLive do
-  alias TodoDesktopapp.Todos
-  # use Phoenix.LiveView
   use TodoDesktopappWeb, :live_view
+  use Gettext, backend: TodoDesktopappWeb.Gettext
+
   alias TodoDesktopapp.Todos
+  import TodoDesktopappWeb.Utils.GenerateAboutModal
 
   @impl true
   def render(assigns) do
@@ -14,14 +15,16 @@ defmodule TodoDesktopappWeb.EditLive do
       <Layouts.flash_group flash={@flash} />
 
       <div class="flex flex-col pt-20 justify-center text-center gap-12 mx-auto w-fit">
-        <h1 class="text-2xl text-zinc-500 font-bold">Show/Edit Todo "{@todo_edit.title}"</h1>
+        <h1 class="text-2xl text-zinc-500 font-bold">
+          {gettext("Show/Edit Todo")} "{@todo_edit.title}"
+        </h1>
 
         <form phx-submit="update" class="flex flex-col gap-4 px-8 w-[400px] mx-auto">
           <input
             type="text"
             class={["input input-sm text-xs font-light w-full pl-4", !@edit && "pointer-events-none"]}
             name="title"
-            placeholder="Title ..."
+            placeholder={gettext("Title ...")}
             value={@todo_edit.title}
             maxlength="25"
             minlength="3"
@@ -30,7 +33,7 @@ defmodule TodoDesktopappWeb.EditLive do
           />
           <textarea
             name="description"
-            placeholder="Description ..."
+            placeholder={gettext("Description ...")}
             value={@todo_edit.description}
             required
             class={[
@@ -44,7 +47,7 @@ defmodule TodoDesktopappWeb.EditLive do
             "flex justify-end text-xs font-light gap-2",
             !@edit && "pointer-events-none"
           ]}>
-            Status:
+            {gettext("Status:")}
             <.input
               type="checkbox"
               name="done"
@@ -54,12 +57,16 @@ defmodule TodoDesktopappWeb.EditLive do
           </label>
           <div class="flex justify-between">
             <button type="button" phx-click="toggle_edit" class="btn btn-ghost btn-sm btn-outline">
-              Toggle Edit
+              {gettext("Toggle Edit")}
             </button>
             <div class="flex justify-end gap-3">
-              <button type="submit" class="btn btn-success btn-sm btn-outline">Update</button>
+              <button type="submit" class="btn btn-success btn-sm btn-outline">
+                {gettext("Update")}
+              </button>
 
-              <.link navigate={~p"/"} class="btn btn-sm btn-error btn-outline">Cancel</.link>
+              <.link navigate={~p"/"} class="btn btn-sm btn-error btn-outline">
+                {gettext("Cancel")}
+              </.link>
             </div>
           </div>
         </form>
@@ -83,7 +90,23 @@ defmodule TodoDesktopappWeb.EditLive do
 
   @impl true
   def handle_info(:about, socket) do
-    {:noreply, push_event(socket, "about", %{})}
+    {:noreply, push_event(socket, "about", %{html: html_about()})}
+  end
+
+  @impl true
+  def handle_info(:english, socket) do
+    Gettext.put_locale("en")
+
+    id = socket.assigns.todo_edit.id
+    {:noreply, push_navigate(socket, to: ~p"/edit/#{id}")}
+  end
+
+  @impl true
+  def handle_info(:spanish, socket) do
+    Gettext.put_locale("es_ES")
+
+    id = socket.assigns.todo_edit.id
+    {:noreply, push_navigate(socket, to: ~p"/edit/#{id}")}
   end
 
   @impl true
@@ -111,11 +134,11 @@ defmodule TodoDesktopappWeb.EditLive do
 
     case Todos.update_todo(todo, %{"title" => title, "description" => description, "done" => done}) do
       {:ok, _} ->
-        socket = put_flash(socket, :info, "Todo updated successfully!")
+        socket = put_flash(socket, :info, gettext("Todo updated successfully!"))
         {:noreply, push_navigate(socket, to: ~p"/")}
 
       {:error, _} ->
-        socket = put_flash(socket, :error, "Error updating Todo!")
+        socket = put_flash(socket, :error, gettext("Error updating Todo!"))
         {:noreply, push_navigate(socket, to: ~p"/")}
     end
   end

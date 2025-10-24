@@ -1,8 +1,10 @@
 defmodule TodoDesktopappWeb.HomeLive do
   use TodoDesktopappWeb, :live_view
+  use Gettext, backend: TodoDesktopappWeb.Gettext
 
   alias TodoDesktopapp.Todos
   alias TodoDesktopappWeb.TodoItemComponent
+  import TodoDesktopappWeb.Utils.GenerateAboutModal
 
   @impl true
   def render(assigns) do
@@ -18,7 +20,9 @@ defmodule TodoDesktopappWeb.HomeLive do
           <Layouts.theme_toggle />
         </div>
         <div class="w-80 sm:w-96 flex gap-6 items-center justify-center">
-          <h1 class="text-3xl sm:text-4xl text-zinc-500 font-bold">Todo List</h1>
+          <h1 class="text-3xl sm:text-4xl text-zinc-500 font-bold">
+            {gettext("Todo List")}
+          </h1>
           <img src="images/logo.png" alt="Logo" class="w-8 sm:w-12" />
         </div>
 
@@ -53,7 +57,7 @@ defmodule TodoDesktopappWeb.HomeLive do
               id="search_form"
               field={@form[:search]}
               class="w-56 text-[9px] -translate-y-[5px] sm:translate-y-0 sm:text-xs"
-              placeholder="Search Todo ..."
+              placeholder={gettext("Search Todo ...")}
               phx-hook=".ClearSearchInput"
             />
             <%!-- ↓↓↓ Web app only. Not for desktop app ↓↓↓ --%>
@@ -74,21 +78,25 @@ defmodule TodoDesktopappWeb.HomeLive do
             :if={!@search}
             phx-click="delete_marked"
             type="button"
-            title="Delete Marked"
+            title={gettext("Delete Marked")}
             class="btn btn-xs sm:btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
-            data-confirm="Are you sure you want to delete all the marked Todos?"
+            data-confirm={
+              gettext(
+                "Confirm^Yes, delete it!^Cancel^Are you sure you want to delete all the marked Todos?"
+              )
+            }
           >
             <img src="images/bulk-delete.png" alt="Bulk Delete" class="w-6" />
           </button>
           <button
             :if={@search}
             type="reset"
-            title="Exit Search"
+            title={gettext("Exit Search")}
             class="btn btn-xs sm:btn-sm btn-outline btn-info flex items-center gap-1 w-fit px-1"
             phx-click="reset-search"
           >
             <.icon class="bg-slate-400 w-4 mt-1" name="hero-arrow-uturn-left" />
-            <span class="hidden sm:block">Exit Search</span>
+            <span class="hidden sm:block">{gettext("Exit Search")}</span>
           </button>
         </.form>
 
@@ -103,7 +111,7 @@ defmodule TodoDesktopappWeb.HomeLive do
           </ul>
 
           <p :if={length(@todos) == 0} class="text-sm font-light text-lime-400">
-            There are no Todos to display
+            {gettext("There are no Todos to display")}
           </p>
 
           <form
@@ -115,7 +123,7 @@ defmodule TodoDesktopappWeb.HomeLive do
               type="text"
               class="input input-xs sm:input-sm w-full"
               name="title"
-              placeholder="Title ..."
+              placeholder={gettext("Title ...")}
               required
               autofocus
             />
@@ -123,11 +131,13 @@ defmodule TodoDesktopappWeb.HomeLive do
               type="text"
               class="input input-xs sm:input-sm w-full"
               name="description"
-              placeholder="Description ..."
+              placeholder={gettext("Description ...")}
               required
             />
             <div class="flex justify-end">
-              <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">Create</button>
+              <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">
+                {gettext("Create")}
+              </button>
             </div>
           </form>
         </div>
@@ -145,7 +155,19 @@ defmodule TodoDesktopappWeb.HomeLive do
 
   @impl true
   def handle_info(:about, socket) do
-    {:noreply, push_event(socket, "about", %{})}
+    {:noreply, push_event(socket, "about", %{html: html_about()})}
+  end
+
+  @impl true
+  def handle_info(:english, socket) do
+    Gettext.put_locale("en")
+    {:noreply, push_navigate(socket, to: ~p"/")}
+  end
+
+  @impl true
+  def handle_info(:spanish, socket) do
+    Gettext.put_locale("es_ES")
+    {:noreply, push_navigate(socket, to: ~p"/")}
   end
 
   @impl true
@@ -173,7 +195,7 @@ defmodule TodoDesktopappWeb.HomeLive do
       ) do
     case Todos.create_todo(unsigned_params) do
       {:ok, result} ->
-        socket = put_flash(socket, :info, "Todo created successfully!")
+        socket = put_flash(socket, :info, gettext("Todo created successfully!"))
         {:noreply, assign(socket, :todos, [result | socket.assigns[:todos]])}
 
       {:error, changeset_err} ->
@@ -184,7 +206,7 @@ defmodule TodoDesktopappWeb.HomeLive do
             end)
           end)
 
-        {:noreply, put_flash(socket, :error, "Title: #{msg}")}
+        {:noreply, put_flash(socket, :error, "#{gettext("Title:")} #{msg}")}
     end
   end
 
@@ -192,12 +214,12 @@ defmodule TodoDesktopappWeb.HomeLive do
     case Todos.delete_todo(id) do
       {:ok, _} ->
         {:noreply,
-         put_flash(socket, :info, "Todo successfully deleted!")
+         put_flash(socket, :info, gettext("Todo successfully deleted!"))
          |> assign(:todos, remove_item(socket.assigns[:todos], id))}
 
       _ ->
         {:noreply,
-         put_flash(socket, :error, "Error deleting Todo!")
+         put_flash(socket, :error, gettext("Error deleting Todo!"))
          |> assign(:todos, remove_item(socket.assigns[:todos], id))}
     end
   end
@@ -206,11 +228,11 @@ defmodule TodoDesktopappWeb.HomeLive do
     case Todos.delete_marked() do
       {:ok, _} ->
         {:noreply,
-         put_flash(socket, :info, "Bulk delete successfully performed!")
+         put_flash(socket, :info, gettext("Bulk delete successfully performed!"))
          |> assign(:todos, remove_marked(socket.assigns[:todos]))}
 
       _ ->
-        {:noreply, put_flash(socket, :error, "Error deleting Todo!")}
+        {:noreply, put_flash(socket, :error, gettext("Error deleting Todo!"))}
     end
   end
 
