@@ -201,6 +201,8 @@ defmodule TodoDesktopappWeb.HomeLive do
       {:error, changeset_err} ->
         %{title: [msg]} =
           Ecto.Changeset.traverse_errors(changeset_err, fn {msg, opts} ->
+            msg = translate_error(msg, opts)
+
             Enum.reduce(opts, msg, fn {key, value}, acc ->
               String.replace(acc, "%{#{key}}", to_string(value))
             end)
@@ -258,6 +260,13 @@ defmodule TodoDesktopappWeb.HomeLive do
     end
   end
 
+  defp translate_error(msg, opts) do
+    case opts[:count] do
+      nil -> Gettext.dgettext(TodoDesktopappWeb.Gettext, "errors", msg)
+      count -> Gettext.dngettext(TodoDesktopappWeb.Gettext, "errors", msg, msg, count)
+    end
+  end
+
   defp init_search_form(socket) do
     socket
     |> assign(
@@ -277,9 +286,63 @@ defmodule TodoDesktopappWeb.HomeLive do
 end
 
 # REFERENCES:
+# Translate Ecto validation messages ==>
+# https://stackoverflow.com/questions/44183906/translate-ecto-validation-messages#53120162
+# USING `GETTEXT` (Domains, Pluralization, etc.) ==>
+# https://hexdocs.pm/gettext/Gettext.html#module-domains
+# https://hexdocs.pm/gettext/Gettext.html#module-pluralization
+# https://hexdocs.pm/gettext/Gettext.html#dngettext/6
+# https://hexdocs.pm/gettext/Gettext.html#dgettext/4
+#
 # ABOUT THE COLOCATED HOOKS ==>
 # https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.ColocatedHook.html
 
 # Trouble resetting a LiveView form programmatically ==>
 # https://elixirforum.com/t/trouble-resetting-a-liveview-form-programmatically/67532
 # https://github.com/LostKobrakai/kobrakai_elixir/blob/main/lib/kobrakai_web/live/one_to_many_form.ex#L143-L152
+
+# OPTS: [count: 3, validation: :length, kind: :min, type: :string]
+# MSG: "should be at least %{count} character(s)"
+# KEY: :count
+# VALUE: 3
+# OPTS: [count: 3, validation: :length, kind: :min, type: :string]
+# MSG: "should be at least %{count} character(s)"
+# KEY: :validation
+# VALUE: :length
+# OPTS: [count: 3, validation: :length, kind: :min, type: :string]
+# MSG: "should be at least %{count} character(s)"
+# KEY: :kind
+# VALUE: :min
+# OPTS: [count: 3, validation: :length, kind: :min, type: :string]
+# MSG: "should be at least %{count} character(s)"
+# KEY: :type
+# VALUE: :string
+
+# OPTS: [count: 25, validation: :length, kind: :max, type: :string]
+# MSG: "should be at most %{count} character(s)"
+# KEY: :count
+# VALUE: 25
+# OPTS: [count: 25, validation: :length, kind: :max, type: :string]
+# MSG: "should be at most %{count} character(s)"
+# KEY: :validation
+# VALUE: :length
+# OPTS: [count: 25, validation: :length, kind: :max, type: :string]
+# MSG: "should be at most %{count} character(s)"
+# KEY: :kind
+# VALUE: :max
+# OPTS: [count: 25, validation: :length, kind: :max, type: :string]
+# MSG: "should be at most %{count} character(s)"
+# KEY: :type
+# VALUE: :string
+
+# CHANGESET_ERR: #Ecto.Changeset<
+#   action: :insert,
+#   changes: %{description: "JK", title: "JK"},
+#   errors: [
+#     title: {"should be at least %{count} character(s)",
+#      [count: 3, validation: :length, kind: :min, type: :string]}
+#   ],
+#   data: #TodoDesktopapp.Todos.Todo<>,
+#   valid?: false,
+#   ...
+# >
