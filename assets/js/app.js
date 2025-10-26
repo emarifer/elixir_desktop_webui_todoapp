@@ -50,7 +50,10 @@ document.body.addEventListener('phoenix.link.click', function (e) {
   // Prevent default implementation
   e.stopPropagation();
   // Introduce alternative implementation
-  var message = e.target.getAttribute("data-confirm").split("^");
+  var message = e.target.getAttribute("data-confirm");
+  let titleText = e.target.getAttribute("data-title");
+  let okText = e.target.getAttribute("data-ok");
+  let cancelText = e.target.getAttribute("data-cancel");
   if(!message){ return; }
 
   // Confirm is resolved execute the click event
@@ -64,16 +67,16 @@ document.body.addEventListener('phoenix.link.click', function (e) {
   e.target?.setAttribute(RESOLVED_ATTRIBUTE, "");
 
   Swal.fire({
-      title: message[0],
-      text: message[3],
+      title: titleText,
+      text: message,
       icon: 'question',
       background: '#1D232A',
       color: 'oklch(0.746477 0.0216 264.436)',
       showCancelButton: true,
       confirmButtonColor: '#7ccf00',
       cancelButtonColor: 'oklch(0.7176 0.221 22.18)',
-      confirmButtonText: message[1],
-      cancelButtonText: message[2]
+      confirmButtonText: okText,
+      cancelButtonText: cancelText
   }).then((result) => {
       if(result.isConfirmed) {
         e.target?.click();

@@ -28,8 +28,23 @@ todo_desktopapp-*.tar
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
 
-# Ignore digested assets cache.
+# Ignore digested assets & static cache.
+# git rm --cached priv/static/**/logo-*.png, e.g.
 /priv/static/cache_manifest.json
+
+priv/static/**/*.gz
+
+priv/static/favicon-*.ico
+priv/static/robots-*.txt
+
+priv/static/**/MerriweatherSans-Bold-*.ttf
+priv/static/**/MerriweatherSans-Light-*.ttf
+priv/static/**/MerriweatherSans-Regular-*.ttf
+priv/static/**/MerriweatherSans-SemiBold-*.ttf
+
+priv/static/images/bulk-delete-*.png
+priv/static/images/logo-*.svg
+priv/static/images/logo-*.png
 
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log

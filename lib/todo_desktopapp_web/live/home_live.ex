@@ -80,11 +80,10 @@ defmodule TodoDesktopappWeb.HomeLive do
             type="button"
             title={gettext("Delete Marked")}
             class="btn btn-xs sm:btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
-            data-confirm={
-              gettext(
-                "Confirm^Yes, delete it!^Cancel^Are you sure you want to delete all the marked Todos?"
-              )
-            }
+            data-title={gettext("Confirm")}
+            data-confirm={gettext("Are you sure you want to delete all the marked Todos?")}
+            data-ok={gettext("Yes, delete them")}
+            data-cancel={gettext("Cancel")}
           >
             <img src="images/bulk-delete.png" alt="Bulk Delete" class="w-6" />
           </button>

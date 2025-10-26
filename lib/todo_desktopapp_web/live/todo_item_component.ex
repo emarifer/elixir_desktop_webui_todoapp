@@ -37,7 +37,10 @@ defmodule TodoDesktopappWeb.TodoItemComponent do
       <div class="flex justify-start items-center gap-3 w-fit">
         <button
           phx-value-id={@todo.id}
-          data-confirm={"#{gettext("Confirm^Yes, delete it!^Cancel^Are you sure you want to delete this Todo with title")} \"#{@todo.title}\"?"}
+          data-title={gettext("Confirm")}
+          data-confirm={"#{gettext("Are you sure you want to delete this Todo with title")} \"#{@todo.title}\"?"}
+          data-ok={gettext("Yes, delete it")}
+          data-cancel={gettext("Cancel")}
           phx-click="remove"
           title={gettext("Delete Todo")}
           class="btn btn-circle btn-outline btn-xs btn-ghost text-[10px]"

@@ -104,17 +104,17 @@ msgid "Todo List"
 msgstr ""
 
 #: lib/todo_desktopapp_web/live/edit_live.ex:19
-#: lib/todo_desktopapp_web/live/todo_item_component.ex:49
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Show/Edit Todo"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:231
+#: lib/todo_desktopapp_web/live/home_live.ex:232
 #, elixir-autogen, elixir-format
 msgid "Bulk delete successfully performed!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:139
+#: lib/todo_desktopapp_web/live/home_live.ex:138
 #, elixir-autogen, elixir-format
 msgid "Create"
 msgstr ""
@@ -125,19 +125,19 @@ msgid "Delete Marked"
 msgstr ""
 
 #: lib/todo_desktopapp_web/live/edit_live.ex:36
-#: lib/todo_desktopapp_web/live/home_live.ex:134
+#: lib/todo_desktopapp_web/live/home_live.ex:133
 #, elixir-autogen, elixir-format
 msgid "Description ..."
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:222
-#: lib/todo_desktopapp_web/live/home_live.ex:235
+#: lib/todo_desktopapp_web/live/home_live.ex:223
+#: lib/todo_desktopapp_web/live/home_live.ex:236
 #, elixir-autogen, elixir-format
 msgid "Error deleting Todo!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:94
-#: lib/todo_desktopapp_web/live/home_live.ex:99
+#: lib/todo_desktopapp_web/live/home_live.ex:93
+#: lib/todo_desktopapp_web/live/home_live.ex:98
 #, elixir-autogen, elixir-format
 msgid "Exit Search"
 msgstr ""
@@ -148,27 +148,27 @@ msgid "Search Todo ..."
 msgstr ""
 
 #: lib/todo_desktopapp_web/live/edit_live.ex:27
-#: lib/todo_desktopapp_web/live/home_live.ex:126
+#: lib/todo_desktopapp_web/live/home_live.ex:125
 #, elixir-autogen, elixir-format
 msgid "Title ..."
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:209
+#: lib/todo_desktopapp_web/live/home_live.ex:210
 #, elixir-autogen, elixir-format
 msgid "Title:"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:198
+#: lib/todo_desktopapp_web/live/home_live.ex:197
 #, elixir-autogen, elixir-format
 msgid "Todo created successfully!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:217
+#: lib/todo_desktopapp_web/live/home_live.ex:218
 #, elixir-autogen, elixir-format
 msgid "Todo successfully deleted!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/todo_item_component.ex:42
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:45
 #, elixir-autogen, elixir-format
 msgid "Delete Todo"
 msgstr ""
@@ -184,6 +184,8 @@ msgid "• Title:"
 msgstr ""
 
 #: lib/todo_desktopapp_web/live/edit_live.ex:68
+#: lib/todo_desktopapp_web/live/home_live.ex:86
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:43
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
@@ -213,16 +215,6 @@ msgstr ""
 msgid "Todo updated successfully!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:84
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Confirm^Yes, delete it!^Cancel^Are you sure you want to delete all the marked Todos?"
-msgstr ""
-
-#: lib/todo_desktopapp_web/live/todo_item_component.ex:40
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Confirm^Yes, delete it!^Cancel^Are you sure you want to delete this Todo with title"
-msgstr ""
-
 #: lib/todo_desktopapp_web/utils/generate_about_modal.ex:7
 #, elixir-autogen, elixir-format
 msgid "About"
@@ -248,7 +240,33 @@ msgstr ""
 msgid "Todolist WebUI Desktopapp is a simple task manager so you don't forget anything 😀"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:114
+#: lib/todo_desktopapp_web/live/home_live.ex:113
 #, elixir-autogen, elixir-format
 msgid "There are no Todos to display"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:84
+#, elixir-autogen, elixir-format
+msgid "Are you sure you want to delete all the marked Todos?"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:83
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:40
+#, elixir-autogen, elixir-format
+msgid "Confirm"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:42
+#, elixir-autogen, elixir-format
+msgid "Yes, delete it"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/home_live.ex:85
+#, elixir-autogen, elixir-format
+msgid "Yes, delete them"
+msgstr ""
+
+#: lib/todo_desktopapp_web/live/todo_item_component.ex:41
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Are you sure you want to delete this Todo with title"
 msgstr ""
