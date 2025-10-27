@@ -105,7 +105,13 @@ defmodule TodoDesktopapp.MixProject do
         "esbuild todo_desktopapp --minify",
         "phx.digest"
       ],
-      installer: ["deps.get", "assets.setup", "assets.deploy", "desktop.installer"],
+      installer: [
+        "deps.get",
+        "assets.setup",
+        "assets.build",
+        "assets.deploy",
+        "desktop.installer"
+      ],
       precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "test"]
     ]
   end
