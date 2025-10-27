@@ -42,7 +42,6 @@ defmodule TodoDesktopapp.MenuBar do
       [locale | _] ->
         Desktop.put_default_locale(locale.language)
         Window.set_title(TodoDesktopappWindow, gettext("Todolist WebUI Desktopapp"))
-        # Gettext.put_locale(TodoDesktopappWeb.Gettext, locale.language)
     end
 
     {:ok, menu}

@@ -95,7 +95,7 @@ defmodule TodoDesktopappWeb.EditLive do
 
   @impl true
   def handle_info(:english, socket) do
-    Gettext.put_locale("en")
+    # Gettext.put_locale("en")
 
     id = socket.assigns.todo_edit.id
     {:noreply, push_navigate(socket, to: ~p"/edit/#{id}")}
@@ -103,7 +103,7 @@ defmodule TodoDesktopappWeb.EditLive do
 
   @impl true
   def handle_info(:spanish, socket) do
-    Gettext.put_locale("es_ES")
+    # Gettext.put_locale("es_ES")
 
     id = socket.assigns.todo_edit.id
     {:noreply, push_navigate(socket, to: ~p"/edit/#{id}")}

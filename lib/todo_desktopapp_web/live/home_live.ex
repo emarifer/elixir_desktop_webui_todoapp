@@ -159,13 +159,13 @@ defmodule TodoDesktopappWeb.HomeLive do
 
   @impl true
   def handle_info(:english, socket) do
-    Gettext.put_locale("en")
+    # Gettext.put_locale("en")
     {:noreply, push_navigate(socket, to: ~p"/")}
   end
 
   @impl true
   def handle_info(:spanish, socket) do
-    Gettext.put_locale("es_ES")
+    # Gettext.put_locale("es_ES")
     {:noreply, push_navigate(socket, to: ~p"/")}
   end
 
@@ -299,6 +299,15 @@ end
 # Trouble resetting a LiveView form programmatically ==>
 # https://elixirforum.com/t/trouble-resetting-a-liveview-form-programmatically/67532
 # https://github.com/LostKobrakai/kobrakai_elixir/blob/main/lib/kobrakai_web/live/one_to_many_form.ex#L143-L152
+#
+# LIVEVIEW AND DATABASE QUERIES, DOES THIS RUN ONCE OR TWICE? ==>
+# https://elixirforum.com/t/liveview-calls-mount-two-times/30519/4
+# https://elixirforum.com/t/liveview-and-database-queries-does-this-run-once-or-twice/55050/8
+# https://elixirforum.com/t/mount-vs-handle-params-on-the-liveview-life-cycle/31920/3
+# https://kobrakai.de/kolumne/liveview-double-mount
+# https://elixirforum.com/t/how-to-pass-data-from-the-assigns-in-the-first-mount-call-to-the-second-mount-in-liveview/62419
+
+# ==============================================================================
 
 # OPTS: [count: 3, validation: :length, kind: :min, type: :string]
 # MSG: "should be at least %{count} character(s)"
