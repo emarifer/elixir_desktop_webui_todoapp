@@ -1,5 +1,7 @@
 import Config
 
+config :todo_desktopapp, :environment, :prod
+
 # Configure your database
 config :todo_desktopapp, TodoDesktopapp.Repo,
   database:

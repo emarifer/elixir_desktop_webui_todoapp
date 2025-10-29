@@ -43,7 +43,7 @@
 
     The above command is a `mix task` (an `alias`) that I created to simplify the installer generation. It downloads the Elixir dependencies, downloads and installs the JavaScript dependencies via `npm/NodeJS` (`Tailwind CSS`, `daisyUI`, and `SweetAlert2`. For the need to install Tailwind CSS/daisyUI, see one of the previous notes), generates the assets that Phoenix needs for production, and finally, creates the application installer appropriate for your OS/version. This step may take more or less time to execute depending on your machine.
 
-    The installer is created in the `_build/prod` folder with the name and version determined in the `mix.exs` file (`_build/prod/Todolist_WebUI_Desktopapp-0.1.0-linux-x86_64.run`, e.g.).
+    The installer is created in the `_build/prod/` folder with the name and version determined in the `mix.exs` file (`_build/prod/Todolist_WebUI_Desktopapp-0.1.0-linux-x86_64.run`, e.g.).
 
 
     Now run it. If you don't pass a path, it will install the application in your home directory. However, I recommend passing the path where applications are usually installed on your system:

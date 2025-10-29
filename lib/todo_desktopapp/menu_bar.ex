@@ -9,14 +9,19 @@ defmodule TodoDesktopapp.MenuBar do
   alias Desktop.Window
   alias TodoDesktopapp.Locales
 
-  @topic_m "modal"
+  @topic_b "backup"
   @topic_l "language"
+  @topic_m "modal"
+  @topic_r "restore"
+  @topic_menu "restore_menubar"
 
   @impl true
   def render(assigns) do
     ~H"""
     <menubar>
       <menu label={gettext("File")}>
+        <item onclick="backup">{gettext("Create/Restore Backup")}</item>
+        <hr />
         <item onclick="quit">{gettext("Quit")}</item>
       </menu>
       <menu label={gettext("Extra")}>
@@ -33,6 +38,8 @@ defmodule TodoDesktopapp.MenuBar do
 
   @impl true
   def mount(menu) do
+    Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_menu)
+
     case Locales.list_locales() do
       [] ->
         Locales.create_locale(%{"language" => "en"})
@@ -48,6 +55,18 @@ defmodule TodoDesktopapp.MenuBar do
   end
 
   @impl true
+  def handle_event("backup", menu) do
+    Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_b, :backup)
+
+    {:noreply, menu}
+  end
+
+  # def handle_event("restore", menu) do
+  #   Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_r, :restore)
+
+  #   {:noreply, menu}
+  # end
+
   def handle_event("quit", menu) do
     Window.quit()
 
@@ -55,6 +74,8 @@ defmodule TodoDesktopapp.MenuBar do
   end
 
   def handle_event("notification", menu) do
+    IO.inspect(menu.dom, label: "DOM")
+
     Window.show_notification(
       TodoDesktopappWindow,
       gettext("Notification from Todolist WebUI Desktopapp!"),
@@ -96,29 +117,37 @@ defmodule TodoDesktopapp.MenuBar do
 
   @impl true
   def handle_info(:changed, menu) do
-    {:noreply, menu}
+    Window.set_title(TodoDesktopappWindow, gettext("Todolist WebUI Desktopapp"))
+
+    {:noreply, assign(menu, dom: new_dom())}
   end
 
   def subscribe do
-    Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_m)
+    Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_b)
     Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_l)
+    Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_m)
+    Phoenix.PubSub.subscribe(TodoDesktopapp.PubSub, @topic_r)
   end
 
   defp new_dom do
-    {:menubar, %{"data-phx-loc": "18"},
+    {:menubar, %{"data-phx-loc": "21"},
      [
-       {:menu, %{label: gettext("File"), "data-phx-loc": "19"},
-        [{:item, %{onclick: "quit", "data-phx-loc": "20"}, [gettext("Quit")]}]},
-       {:menu, %{label: gettext("Extra"), "data-phx-loc": "22"},
+       {:menu, %{label: gettext("File"), "data-phx-loc": "22"},
         [
-          {:item, %{onclick: "notification", "data-phx-loc": "23"},
-           [gettext("Show Notification")]},
-          {:item, %{onclick: "about", "data-phx-loc": "24"}, [gettext("Open About")]}
+          {:item, %{onclick: "backup", "data-phx-loc": "23"}, [gettext("Create/Restore Backup")]},
+          {:hr, %{"data-phx-loc": "24"}, []},
+          {:item, %{onclick: "quit", "data-phx-loc": "25"}, [gettext("Quit")]}
         ]},
-       {:menu, %{label: gettext("Language"), "data-phx-loc": "26"},
+       {:menu, %{label: gettext("Extra"), "data-phx-loc": "27"},
         [
-          {:item, %{onclick: "english", "data-phx-loc": "27"}, [gettext("English")]},
-          {:item, %{onclick: "spanish", "data-phx-loc": "28"}, [gettext("Spanish")]}
+          {:item, %{onclick: "notification", "data-phx-loc": "28"},
+           [gettext("Show Notification")]},
+          {:item, %{onclick: "about", "data-phx-loc": "29"}, [gettext("Open About")]}
+        ]},
+       {:menu, %{label: gettext("Language"), "data-phx-loc": "31"},
+        [
+          {:item, %{onclick: "english", "data-phx-loc": "32"}, [gettext("English")]},
+          {:item, %{onclick: "spanish", "data-phx-loc": "33"}, [gettext("Spanish")]}
         ]}
      ]}
   end

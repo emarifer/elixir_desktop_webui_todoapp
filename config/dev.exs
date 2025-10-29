@@ -1,5 +1,7 @@
 import Config
 
+config :todo_desktopapp, :environment, :dev
+
 # Configure your database
 config :todo_desktopapp, TodoDesktopapp.Repo,
   database: Path.expand("../todo_desktopapp_dev.db", __DIR__),
