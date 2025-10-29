@@ -2,8 +2,10 @@ defmodule TodoDesktopappWeb.EditLive do
   use TodoDesktopappWeb, :live_view
   use Gettext, backend: TodoDesktopappWeb.Gettext
 
-  alias TodoDesktopapp.Todos
+  alias TodoDesktopapp.{Locales, Todos}
   import TodoDesktopappWeb.Utils.GenerateAboutModal
+
+  @topic_menu "restore_menubar"
 
   @impl true
   def render(assigns) do
@@ -14,62 +16,113 @@ defmodule TodoDesktopappWeb.EditLive do
     >
       <Layouts.flash_group flash={@flash} />
 
-      <div class="flex flex-col pt-20 justify-center text-center gap-12 mx-auto w-fit">
-        <h1 class="text-2xl text-zinc-500 font-bold">
-          {gettext("Show/Edit Todo")} "{@todo_edit.title}"
-        </h1>
+      <div :if={@backup}>
+        <div class="flex flex-col pt-20 sm:pt-32 justify-center text-center gap-6 sm:gap-12 mx-auto w-fit px-12 sm:px-48">
+          <div class="absolute top-2 left-2">
+            <Layouts.theme_toggle />
+          </div>
+          <div class="w-80 sm:w-96 flex flex-col gap-6 items-center justify-center">
+            <h1 class="text-2xl sm:text-3xl text-zinc-500 font-medium sm:font-bold">
+              {gettext("Enter the folder to Save/Restore the Backup")}
+            </h1>
+            <form
+              phx-submit="handle-backup"
+              class="flex flex-col gap-2.5 sm:gap-4 px-8 w-full"
+            >
+              <input
+                type="text"
+                class="input input-xs sm:input-sm w-full"
+                name="backup"
+                placeholder={gettext("Enter the path to the folder ...")}
+                required
+                autofocus
+              />
+              <label class="flex justify-end text-xs font-light gap-2">
+                {gettext("Restore:")}
+                <.input
+                  type="checkbox"
+                  name="restore"
+                  class="checkbox checkbox-success w-3.5 h-3.5 -mt-2"
+                />
+              </label>
+              <div class="flex justify-between">
+                <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">
+                  {gettext("Save/Restore")}
+                </button>
+                <button
+                  type="button"
+                  phx-click="cancel-backup"
+                  class="btn btn-error btn-xs sm:btn-sm btn-outline"
+                >
+                  {gettext("Cancel Backup")}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
-        <form phx-submit="update" class="flex flex-col gap-4 px-8 w-[400px] mx-auto">
-          <input
-            type="text"
-            class={["input input-sm text-xs font-light w-full pl-4", !@edit && "pointer-events-none"]}
-            name="title"
-            placeholder={gettext("Title ...")}
-            value={@todo_edit.title}
-            maxlength="25"
-            minlength="3"
-            required
-            autofocus
-          />
-          <textarea
-            name="description"
-            placeholder={gettext("Description ...")}
-            value={@todo_edit.description}
-            required
-            class={[
-              "input text-xs font-light w-full text-wrap h-20 p-0.5 scroller",
-              !@edit && "pointer-events-none"
-            ]}
-          >
+      <div :if={!@backup}>
+        <div class="flex flex-col pt-20 justify-center text-center gap-12 mx-auto w-fit">
+          <h1 class="text-2xl text-zinc-500 font-bold">
+            {gettext("Show/Edit Todo")} "{@todo_edit.title}"
+          </h1>
+
+          <form phx-submit="update" class="flex flex-col gap-4 px-8 w-[400px] mx-auto">
+            <input
+              type="text"
+              class={[
+                "input input-sm text-xs font-light w-full pl-4",
+                !@edit && "pointer-events-none"
+              ]}
+              name="title"
+              placeholder={gettext("Title ...")}
+              value={@todo_edit.title}
+              maxlength="25"
+              minlength="3"
+              required
+              autofocus
+            />
+            <textarea
+              name="description"
+              placeholder={gettext("Description ...")}
+              value={@todo_edit.description}
+              required
+              class={[
+                "input text-xs font-light w-full text-wrap h-20 p-0.5 scroller",
+                !@edit && "pointer-events-none"
+              ]}
+            >
           {@todo_edit.description}
         </textarea>
-          <label class={[
-            "flex justify-end text-xs font-light gap-2",
-            !@edit && "pointer-events-none"
-          ]}>
-            {gettext("Status:")}
-            <.input
-              type="checkbox"
-              name="done"
-              checked={@todo_edit.done}
-              class="checkbox checkbox-success w-3.5 h-3.5 -mt-2"
-            />
-          </label>
-          <div class="flex justify-between">
-            <button type="button" phx-click="toggle_edit" class="btn btn-ghost btn-sm btn-outline">
-              {gettext("Toggle Edit")}
-            </button>
-            <div class="flex justify-end gap-3">
-              <button type="submit" class="btn btn-success btn-sm btn-outline">
-                {gettext("Update")}
+            <label class={[
+              "flex justify-end text-xs font-light gap-2",
+              !@edit && "pointer-events-none"
+            ]}>
+              {gettext("Status:")}
+              <.input
+                type="checkbox"
+                name="done"
+                checked={@todo_edit.done}
+                class="checkbox checkbox-success w-3.5 h-3.5 -mt-2"
+              />
+            </label>
+            <div class="flex justify-between">
+              <button type="button" phx-click="toggle_edit" class="btn btn-ghost btn-sm btn-outline">
+                {gettext("Toggle Edit")}
               </button>
+              <div class="flex justify-end gap-3">
+                <button type="submit" class="btn btn-success btn-sm btn-outline">
+                  {gettext("Update")}
+                </button>
 
-              <.link navigate={~p"/"} class="btn btn-sm btn-error btn-outline">
-                {gettext("Cancel")}
-              </.link>
+                <.link navigate={~p"/"} class="btn btn-sm btn-error btn-outline">
+                  {gettext("Cancel")}
+                </.link>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </section>
     """
@@ -81,19 +134,22 @@ defmodule TodoDesktopappWeb.EditLive do
 
     case Todos.get_todo(id) do
       nil ->
-        {:ok, put_flash(socket, :error, "Error getting the Todo!")}
+        {:ok, put_flash(socket, :error, "Error getting the Todo!") |> assign(:backup, nil)}
 
       todo ->
-        {:ok, assign(socket, [{:todo_edit, todo}, {:edit, nil}])}
+        {:ok, assign(socket, [{:todo_edit, todo}, {:edit, nil}, {:backup, nil}])}
     end
   end
 
   @impl true
+  def handle_info(:backup, socket) do
+    {:noreply, assign(socket, :backup, true)}
+  end
+
   def handle_info(:about, socket) do
     {:noreply, push_event(socket, "about", %{html: html_about()})}
   end
 
-  @impl true
   def handle_info(:english, socket) do
     # Gettext.put_locale("en")
 
@@ -101,12 +157,66 @@ defmodule TodoDesktopappWeb.EditLive do
     {:noreply, push_navigate(socket, to: ~p"/edit/#{id}")}
   end
 
-  @impl true
   def handle_info(:spanish, socket) do
     # Gettext.put_locale("es_ES")
 
     id = socket.assigns.todo_edit.id
     {:noreply, push_navigate(socket, to: ~p"/edit/#{id}")}
+  end
+
+  @impl true
+  def handle_event("handle-backup", %{"backup" => path, "restore" => restore}, socket) do
+    mode = Application.get_env(:todo_desktopapp, :environment)
+    app_name = Atom.to_string(Application.get_application(__MODULE__))
+    path = Path.join(String.trim_trailing(path, "/"), app_name)
+
+    db_config =
+      Path.join([
+        System.user_home(),
+        ".config",
+        app_name
+      ])
+
+    source =
+      if mode == :dev do
+        Path.join(path, "#{app_name}_dev.db")
+      else
+        Path.join(path, "database.sqlite3")
+      end
+
+    if String.to_atom(restore) do
+      if mode == :dev do
+        System.cmd("/bin/sh", ["-c", "cp #{source}* #{File.cwd!()}"])
+      else
+        System.cmd("/bin/sh", ["-c", "cp #{source}* #{db_config}"])
+      end
+
+      language = Locales.get_locales!().language
+      Desktop.put_default_locale(language)
+
+      Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_menu, :changed)
+
+      socket = put_flash(socket, :info, gettext("The backup has been restored successfully!"))
+      {:noreply, assign(socket, :backup, nil) |> push_navigate(to: ~p"/")}
+    else
+      source =
+        if mode == :dev do
+          Path.join(File.cwd!(), "#{app_name}_dev.db")
+        else
+          Path.join(db_config, "database.sqlite3")
+        end
+
+      System.cmd("/bin/sh", ["-c", "mkdir #{path}"])
+
+      System.cmd("/bin/sh", ["-c", "cp #{source}* #{path}"])
+
+      socket = put_flash(socket, :info, gettext("The backup was successful!"))
+      {:noreply, assign(socket, :backup, nil)}
+    end
+  end
+
+  def handle_event("cancel-backup", _params, socket) do
+    {:noreply, assign(socket, :backup, nil)}
   end
 
   @impl true

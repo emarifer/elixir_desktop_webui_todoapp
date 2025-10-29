@@ -61,12 +61,6 @@ defmodule TodoDesktopapp.MenuBar do
     {:noreply, menu}
   end
 
-  # def handle_event("restore", menu) do
-  #   Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_r, :restore)
-
-  #   {:noreply, menu}
-  # end
-
   def handle_event("quit", menu) do
     Window.quit()
 
