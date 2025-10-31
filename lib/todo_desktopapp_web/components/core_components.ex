@@ -60,7 +60,7 @@ defmodule TodoDesktopappWeb.CoreComponents do
       {@rest}
     >
       <div class={[
-        "alert w-80 sm:w-96 max-w-80 sm:max-w-96 text-wrap",
+        "alert min-w-96 max-w-[500px] text-wrap",
         @kind == :info && "alert-info",
         @kind == :error && "alert-error"
       ]}>

@@ -2,10 +2,9 @@ defmodule TodoDesktopappWeb.EditLive do
   use TodoDesktopappWeb, :live_view
   use Gettext, backend: TodoDesktopappWeb.Gettext
 
-  alias TodoDesktopapp.{Locales, Todos}
-  import TodoDesktopappWeb.Utils.GenerateAboutModal
+  alias TodoDesktopapp.Todos
 
-  @topic_menu "restore_menubar"
+  import TodoDesktopappWeb.Utils.{GenerateAboutModal, HandleBackup}
 
   @impl true
   def render(assigns) do
@@ -166,52 +165,32 @@ defmodule TodoDesktopappWeb.EditLive do
 
   @impl true
   def handle_event("handle-backup", %{"backup" => path, "restore" => restore}, socket) do
-    mode = Application.get_env(:todo_desktopapp, :environment)
     app_name = Atom.to_string(Application.get_application(__MODULE__))
     path = Path.join(String.trim_trailing(path, "/"), app_name)
 
-    db_config =
-      Path.join([
-        System.user_home(),
-        ".config",
-        app_name
-      ])
-
-    source =
-      if mode == :dev do
-        Path.join(path, "#{app_name}_dev.db")
-      else
-        Path.join(path, "database.sqlite3")
-      end
-
     if String.to_atom(restore) do
-      if mode == :dev do
-        System.cmd("/bin/sh", ["-c", "cp #{source}* #{File.cwd!()}"])
-      else
-        System.cmd("/bin/sh", ["-c", "cp #{source}* #{db_config}"])
+      case restore_backup(path) do
+        {res, 0} when is_binary(res) ->
+          handle_locales()
+          socket = put_flash(socket, :info, gettext("The backup has been restored successfully!"))
+          {:noreply, assign(socket, :backup, nil) |> push_navigate(to: ~p"/")}
+
+        {err, _} ->
+          handle_locales()
+
+          socket = put_flash(socket, :error, err)
+          {:noreply, assign(socket, :backup, nil)}
       end
-
-      language = Locales.get_locales!().language
-      Desktop.put_default_locale(language)
-
-      Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_menu, :changed)
-
-      socket = put_flash(socket, :info, gettext("The backup has been restored successfully!"))
-      {:noreply, assign(socket, :backup, nil) |> push_navigate(to: ~p"/")}
     else
-      source =
-        if mode == :dev do
-          Path.join(File.cwd!(), "#{app_name}_dev.db")
-        else
-          Path.join(db_config, "database.sqlite3")
-        end
+      case generate_backup(path) do
+        {res, 0} when is_binary(res) ->
+          socket = put_flash(socket, :info, gettext("The backup was successful!"))
+          {:noreply, assign(socket, :backup, nil)}
 
-      System.cmd("/bin/sh", ["-c", "mkdir #{path}"])
-
-      System.cmd("/bin/sh", ["-c", "cp #{source}* #{path}"])
-
-      socket = put_flash(socket, :info, gettext("The backup was successful!"))
-      {:noreply, assign(socket, :backup, nil)}
+        {err, _} ->
+          socket = put_flash(socket, :error, err)
+          {:noreply, assign(socket, :backup, nil)}
+      end
     end
   end
 

@@ -23,7 +23,7 @@ msgid "Attempting to reconnect"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:32
-#: lib/todo_desktopapp/menu_bar.ex:149
+#: lib/todo_desktopapp/menu_bar.ex:143
 #, elixir-autogen, elixir-format
 msgid "English"
 msgstr ""
@@ -34,7 +34,7 @@ msgid "Something went wrong!"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:33
-#: lib/todo_desktopapp/menu_bar.ex:150
+#: lib/todo_desktopapp/menu_bar.ex:144
 #, elixir-autogen, elixir-format
 msgid "Spanish"
 msgstr ""
@@ -51,120 +51,120 @@ msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:47
 #: lib/todo_desktopapp/menu_bar.ex:51
-#: lib/todo_desktopapp/menu_bar.ex:102
-#: lib/todo_desktopapp/menu_bar.ex:113
-#: lib/todo_desktopapp/menu_bar.ex:120
+#: lib/todo_desktopapp/menu_bar.ex:96
+#: lib/todo_desktopapp/menu_bar.ex:107
+#: lib/todo_desktopapp/menu_bar.ex:114
 #, elixir-autogen, elixir-format
 msgid "Todolist WebUI Desktopapp"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:27
-#: lib/todo_desktopapp/menu_bar.ex:141
+#: lib/todo_desktopapp/menu_bar.ex:135
 #, elixir-autogen, elixir-format
 msgid "Extra"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:22
-#: lib/todo_desktopapp/menu_bar.ex:135
+#: lib/todo_desktopapp/menu_bar.ex:129
 #, elixir-autogen, elixir-format
 msgid "File"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:31
-#: lib/todo_desktopapp/menu_bar.ex:147
+#: lib/todo_desktopapp/menu_bar.ex:141
 #, elixir-autogen, elixir-format
 msgid "Language"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:29
-#: lib/todo_desktopapp/menu_bar.ex:145
+#: lib/todo_desktopapp/menu_bar.ex:139
 #, elixir-autogen, elixir-format
 msgid "Open About"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:25
-#: lib/todo_desktopapp/menu_bar.ex:139
+#: lib/todo_desktopapp/menu_bar.ex:133
 #, elixir-autogen, elixir-format
 msgid "Quit"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:28
-#: lib/todo_desktopapp/menu_bar.ex:144
+#: lib/todo_desktopapp/menu_bar.ex:138
 #, elixir-autogen, elixir-format
 msgid "Show Notification"
 msgstr ""
 
-#: lib/todo_desktopapp/menu_bar.ex:81
+#: lib/todo_desktopapp/menu_bar.ex:75
 #, elixir-autogen, elixir-format
 msgid "Notification from Todolist WebUI Desktopapp!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:73
+#: lib/todo_desktopapp_web/live/home_live.ex:72
 #, elixir-autogen, elixir-format
 msgid "Todo List"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:19
+#: lib/todo_desktopapp_web/live/edit_live.ex:67
 #: lib/todo_desktopapp_web/live/todo_item_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Show/Edit Todo"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:340
+#: lib/todo_desktopapp_web/live/home_live.ex:321
 #, elixir-autogen, elixir-format
 msgid "Bulk delete successfully performed!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:187
+#: lib/todo_desktopapp_web/live/home_live.ex:186
 #, elixir-autogen, elixir-format
 msgid "Create"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:130
+#: lib/todo_desktopapp_web/live/home_live.ex:129
 #, elixir-autogen, elixir-format
 msgid "Delete Marked"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:36
-#: lib/todo_desktopapp_web/live/home_live.ex:182
+#: lib/todo_desktopapp_web/live/edit_live.ex:87
+#: lib/todo_desktopapp_web/live/home_live.ex:181
 #, elixir-autogen, elixir-format
 msgid "Description ..."
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:331
-#: lib/todo_desktopapp_web/live/home_live.ex:344
+#: lib/todo_desktopapp_web/live/home_live.ex:312
+#: lib/todo_desktopapp_web/live/home_live.ex:325
 #, elixir-autogen, elixir-format
 msgid "Error deleting Todo!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:142
-#: lib/todo_desktopapp_web/live/home_live.ex:147
+#: lib/todo_desktopapp_web/live/home_live.ex:141
+#: lib/todo_desktopapp_web/live/home_live.ex:146
 #, elixir-autogen, elixir-format
 msgid "Exit Search"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:109
+#: lib/todo_desktopapp_web/live/home_live.ex:108
 #, elixir-autogen, elixir-format
 msgid "Search Todo ..."
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:27
-#: lib/todo_desktopapp_web/live/home_live.ex:174
+#: lib/todo_desktopapp_web/live/edit_live.ex:78
+#: lib/todo_desktopapp_web/live/home_live.ex:173
 #, elixir-autogen, elixir-format
 msgid "Title ..."
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:318
+#: lib/todo_desktopapp_web/live/home_live.ex:299
 #, elixir-autogen, elixir-format
 msgid "Title:"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:305
+#: lib/todo_desktopapp_web/live/home_live.ex:286
 #, elixir-autogen, elixir-format
 msgid "Todo created successfully!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:326
+#: lib/todo_desktopapp_web/live/home_live.ex:307
 #, elixir-autogen, elixir-format
 msgid "Todo successfully deleted!"
 msgstr ""
@@ -184,34 +184,34 @@ msgstr ""
 msgid "• Title:"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:68
-#: lib/todo_desktopapp_web/live/home_live.ex:135
+#: lib/todo_desktopapp_web/live/edit_live.ex:119
+#: lib/todo_desktopapp_web/live/home_live.ex:134
 #: lib/todo_desktopapp_web/live/todo_item_component.ex:43
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:50
+#: lib/todo_desktopapp_web/live/edit_live.ex:101
 #, elixir-autogen, elixir-format
 msgid "Status:"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:60
+#: lib/todo_desktopapp_web/live/edit_live.ex:111
 #, elixir-autogen, elixir-format
 msgid "Toggle Edit"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:64
+#: lib/todo_desktopapp_web/live/edit_live.ex:115
 #, elixir-autogen, elixir-format
 msgid "Update"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:141
+#: lib/todo_desktopapp_web/live/edit_live.ex:230
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Error updating Todo!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/edit_live.ex:137
+#: lib/todo_desktopapp_web/live/edit_live.ex:226
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Todo updated successfully!"
 msgstr ""
@@ -241,17 +241,17 @@ msgstr ""
 msgid "Todolist WebUI Desktopapp is a simple task manager so you don't forget anything 😀"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:162
+#: lib/todo_desktopapp_web/live/home_live.ex:161
 #, elixir-autogen, elixir-format
 msgid "There are no Todos to display"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:133
+#: lib/todo_desktopapp_web/live/home_live.ex:132
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete all the marked Todos?"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:132
+#: lib/todo_desktopapp_web/live/home_live.ex:131
 #: lib/todo_desktopapp_web/live/todo_item_component.ex:40
 #, elixir-autogen, elixir-format
 msgid "Confirm"
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Yes, delete it"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:134
+#: lib/todo_desktopapp_web/live/home_live.ex:133
 #, elixir-autogen, elixir-format
 msgid "Yes, delete them"
 msgstr ""
@@ -273,42 +273,49 @@ msgid "Are you sure you want to delete this Todo with title"
 msgstr ""
 
 #: lib/todo_desktopapp/menu_bar.ex:23
-#: lib/todo_desktopapp/menu_bar.ex:137
+#: lib/todo_desktopapp/menu_bar.ex:131
 #, elixir-autogen, elixir-format
 msgid "Create/Restore Backup"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:27
+#: lib/todo_desktopapp_web/live/edit_live.ex:25
+#: lib/todo_desktopapp_web/live/home_live.ex:26
 #, elixir-autogen, elixir-format
 msgid "Enter the folder to Save/Restore the Backup"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:37
+#: lib/todo_desktopapp_web/live/edit_live.ex:35
+#: lib/todo_desktopapp_web/live/home_live.ex:36
 #, elixir-autogen, elixir-format
 msgid "Enter the path to the folder ..."
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:42
+#: lib/todo_desktopapp_web/live/edit_live.ex:40
+#: lib/todo_desktopapp_web/live/home_live.ex:41
 #, elixir-autogen, elixir-format
 msgid "Restore:"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:51
+#: lib/todo_desktopapp_web/live/edit_live.ex:49
+#: lib/todo_desktopapp_web/live/home_live.ex:50
 #, elixir-autogen, elixir-format
 msgid "Save/Restore"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:275
+#: lib/todo_desktopapp_web/live/edit_live.ex:175
+#: lib/todo_desktopapp_web/live/home_live.ex:253
 #, elixir-autogen, elixir-format
 msgid "The backup has been restored successfully!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:289
+#: lib/todo_desktopapp_web/live/edit_live.ex:187
+#: lib/todo_desktopapp_web/live/home_live.ex:265
 #, elixir-autogen, elixir-format
 msgid "The backup was successful!"
 msgstr ""
 
-#: lib/todo_desktopapp_web/live/home_live.ex:58
+#: lib/todo_desktopapp_web/live/edit_live.ex:56
+#: lib/todo_desktopapp_web/live/home_live.ex:57
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Cancel Backup"
 msgstr ""

@@ -68,8 +68,6 @@ defmodule TodoDesktopapp.MenuBar do
   end
 
   def handle_event("notification", menu) do
-    IO.inspect(menu.dom, label: "DOM")
-
     Window.show_notification(
       TodoDesktopappWindow,
       gettext("Notification from Todolist WebUI Desktopapp!"),
