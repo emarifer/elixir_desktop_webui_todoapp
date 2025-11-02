@@ -5,6 +5,7 @@ defmodule TodoDesktopappWeb.Utils.HandleBackup do
 
   def generate_backup(path) do
     app_name = Atom.to_string(Application.get_application(__MODULE__))
+    path = Path.join(String.trim_trailing(path, "/"), app_name)
     mode = Application.get_env(:todo_desktopapp, :environment)
     pass = Application.get_env(:todo_desktopapp, :pass_zip)
 
@@ -37,6 +38,7 @@ defmodule TodoDesktopappWeb.Utils.HandleBackup do
   end
 
   def restore_backup(path) do
+    path_no_ext = String.trim_trailing(path, ".zip")
     app_name = Atom.to_string(Application.get_application(__MODULE__))
     mode = Application.get_env(:todo_desktopapp, :environment)
     pass = Application.get_env(:todo_desktopapp, :pass_zip)
@@ -50,31 +52,31 @@ defmodule TodoDesktopappWeb.Utils.HandleBackup do
 
     source =
       if mode == :dev do
-        Path.join(path, "#{app_name}_dev.db")
+        Path.join(path_no_ext, "#{app_name}_dev.db")
       else
-        Path.join(path, "database.sqlite3")
+        Path.join(path_no_ext, "database.sqlite3")
       end
 
     if mode == :dev do
       with {res_unzip, 0} when is_binary(res_unzip) <-
-             System.cmd("/bin/sh", ["-c", "unzip -P #{pass} #{path}.zip -d #{path}"],
+             System.cmd("/bin/sh", ["-c", "unzip -P #{pass} #{path} -d #{path_no_ext}"],
                stderr_to_stdout: true
              ),
            {res_cp, 0} when is_binary(res_cp) <-
              System.cmd("/bin/sh", ["-c", "cp #{source}* #{File.cwd!()}"], stderr_to_stdout: true),
            {res_rm, 0} when is_binary(res_rm) <-
-             System.cmd("/bin/sh", ["-c", "rm -R #{path}"], stderr_to_stdout: true) do
+             System.cmd("/bin/sh", ["-c", "rm -R #{path_no_ext}"], stderr_to_stdout: true) do
         {res_unzip <> " " <> res_cp <> " " <> res_rm, 0}
       end
     else
       with {res_unzip, 0} when is_binary(res_unzip) <-
-             System.cmd("/bin/sh", ["-c", "unzip -P #{pass} #{path}.zip -d #{path}"],
+             System.cmd("/bin/sh", ["-c", "unzip -P #{pass} #{path} -d #{path_no_ext}"],
                stderr_to_stdout: true
              ),
            {res_cp, 0} when is_binary(res_cp) <-
              System.cmd("/bin/sh", ["-c", "cp #{source}* #{db_config}"], stderr_to_stdout: true),
            {res_rm, 0} when is_binary(res_rm) <-
-             System.cmd("/bin/sh", ["-c", "rm -R #{path}"], stderr_to_stdout: true) do
+             System.cmd("/bin/sh", ["-c", "rm -R #{path_no_ext}"], stderr_to_stdout: true) do
         {res_unzip <> " " <> res_cp <> " " <> res_rm, 0}
       end
     end

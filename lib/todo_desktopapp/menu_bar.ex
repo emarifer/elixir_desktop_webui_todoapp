@@ -20,7 +20,8 @@ defmodule TodoDesktopapp.MenuBar do
     ~H"""
     <menubar>
       <menu label={gettext("File")}>
-        <item onclick="backup">{gettext("Create/Restore Backup")}</item>
+        <item onclick="backup">{gettext("Create Backup")}</item>
+        <item onclick="restore">{gettext("Restore Backup")}</item>
         <hr />
         <item onclick="quit">{gettext("Quit")}</item>
       </menu>
@@ -56,7 +57,46 @@ defmodule TodoDesktopapp.MenuBar do
 
   @impl true
   def handle_event("backup", menu) do
-    Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_b, :backup)
+    wx = :wx.new()
+    dialog = :wxDirDialog.new(wx)
+    :wxDirDialog.setTitle(dialog, gettext("Select the folder where you want to save the Backup"))
+    :wxDirDialog.setPath(dialog, System.user_home())
+
+    case :wxDirDialog.showModal(dialog) do
+      5100 ->
+        path =
+          dialog
+          |> :wxDirDialog.getPath()
+          |> List.to_string()
+
+        Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_b, {:backup, path})
+
+      _ ->
+        {:error, "cancelled"} |> IO.inspect(label: "SELECTED PATH")
+    end
+
+    {:noreply, menu}
+  end
+
+  def handle_event("restore", menu) do
+    wx = :wx.new()
+    dialog = :wxFileDialog.new(wx)
+    :wxFileDialog.setTitle(dialog, gettext("Select your Backup *zip file"))
+    :wxFileDialog.setPath(dialog, System.user_home() <> "/*")
+    :wxFileDialog.setWildcard(dialog, "Backup File (todo_desktopapp.zip)|todo_desktopapp.zip")
+
+    case :wxFileDialog.showModal(dialog) do
+      5100 ->
+        path =
+          dialog
+          |> :wxFileDialog.getPath()
+          |> List.to_string()
+
+        Phoenix.PubSub.broadcast(TodoDesktopapp.PubSub, @topic_r, {:restore, path})
+
+      _ ->
+        {:error, "cancelled"} |> IO.inspect(label: "SELECTED PATH")
+    end
 
     {:noreply, menu}
   end
@@ -68,6 +108,8 @@ defmodule TodoDesktopapp.MenuBar do
   end
 
   def handle_event("notification", menu) do
+    IO.inspect(menu.dom, label: "DOM")
+
     Window.show_notification(
       TodoDesktopappWindow,
       gettext("Notification from Todolist WebUI Desktopapp!"),
@@ -126,20 +168,21 @@ defmodule TodoDesktopapp.MenuBar do
      [
        {:menu, %{label: gettext("File"), "data-phx-loc": "22"},
         [
-          {:item, %{onclick: "backup", "data-phx-loc": "23"}, [gettext("Create/Restore Backup")]},
-          {:hr, %{"data-phx-loc": "24"}, []},
-          {:item, %{onclick: "quit", "data-phx-loc": "25"}, [gettext("Quit")]}
+          {:item, %{"data-phx-loc": "23", onclick: "backup"}, [gettext("Create Backup")]},
+          {:item, %{"data-phx-loc": "24", onclick: "restore"}, [gettext("Restore Backup")]},
+          {:hr, %{"data-phx-loc": "25"}, []},
+          {:item, %{"data-phx-loc": "26", onclick: "quit"}, [gettext("Quit")]}
         ]},
-       {:menu, %{label: gettext("Extra"), "data-phx-loc": "27"},
+       {:menu, %{label: gettext("Extra"), "data-phx-loc": "28"},
         [
-          {:item, %{onclick: "notification", "data-phx-loc": "28"},
+          {:item, %{"data-phx-loc": "29", onclick: "notification"},
            [gettext("Show Notification")]},
-          {:item, %{onclick: "about", "data-phx-loc": "29"}, [gettext("Open About")]}
+          {:item, %{"data-phx-loc": "30", onclick: "about"}, [gettext("Open About")]}
         ]},
-       {:menu, %{label: gettext("Language"), "data-phx-loc": "31"},
+       {:menu, %{label: gettext("Language"), "data-phx-loc": "32"},
         [
-          {:item, %{onclick: "english", "data-phx-loc": "32"}, [gettext("English")]},
-          {:item, %{onclick: "spanish", "data-phx-loc": "33"}, [gettext("Spanish")]}
+          {:item, %{"data-phx-loc": "33", onclick: "english"}, [gettext("English")]},
+          {:item, %{"data-phx-loc": "34", onclick: "spanish"}, [gettext("Spanish")]}
         ]}
      ]}
   end

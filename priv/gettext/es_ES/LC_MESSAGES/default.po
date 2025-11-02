@@ -22,8 +22,8 @@ msgstr ""
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/todo_desktopapp/menu_bar.ex:32
-#: lib/todo_desktopapp/menu_bar.ex:143
+#: lib/todo_desktopapp/menu_bar.ex:33
+#: lib/todo_desktopapp/menu_bar.ex:182
 #, elixir-autogen, elixir-format
 msgid "English"
 msgstr "Inglés"
@@ -33,8 +33,8 @@ msgstr "Inglés"
 msgid "Something went wrong!"
 msgstr "¡Algo salió mal!"
 
-#: lib/todo_desktopapp/menu_bar.ex:33
-#: lib/todo_desktopapp/menu_bar.ex:144
+#: lib/todo_desktopapp/menu_bar.ex:34
+#: lib/todo_desktopapp/menu_bar.ex:183
 #, elixir-autogen, elixir-format
 msgid "Spanish"
 msgstr "Español"
@@ -49,52 +49,52 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/todo_desktopapp/menu_bar.ex:47
-#: lib/todo_desktopapp/menu_bar.ex:51
-#: lib/todo_desktopapp/menu_bar.ex:96
-#: lib/todo_desktopapp/menu_bar.ex:107
-#: lib/todo_desktopapp/menu_bar.ex:114
+#: lib/todo_desktopapp/menu_bar.ex:48
+#: lib/todo_desktopapp/menu_bar.ex:52
+#: lib/todo_desktopapp/menu_bar.ex:134
+#: lib/todo_desktopapp/menu_bar.ex:145
+#: lib/todo_desktopapp/menu_bar.ex:152
 #, elixir-autogen, elixir-format
 msgid "Todolist WebUI Desktopapp"
 msgstr "Todoapp de escritorio con interfaz de usuario web"
 
-#: lib/todo_desktopapp/menu_bar.ex:27
-#: lib/todo_desktopapp/menu_bar.ex:135
+#: lib/todo_desktopapp/menu_bar.ex:28
+#: lib/todo_desktopapp/menu_bar.ex:174
 #, elixir-autogen, elixir-format
 msgid "Extra"
 msgstr "Extras"
 
 #: lib/todo_desktopapp/menu_bar.ex:22
-#: lib/todo_desktopapp/menu_bar.ex:129
+#: lib/todo_desktopapp/menu_bar.ex:167
 #, elixir-autogen, elixir-format
 msgid "File"
 msgstr "Archivo"
 
-#: lib/todo_desktopapp/menu_bar.ex:31
-#: lib/todo_desktopapp/menu_bar.ex:141
+#: lib/todo_desktopapp/menu_bar.ex:32
+#: lib/todo_desktopapp/menu_bar.ex:180
 #, elixir-autogen, elixir-format
 msgid "Language"
 msgstr "Idioma"
 
-#: lib/todo_desktopapp/menu_bar.ex:29
-#: lib/todo_desktopapp/menu_bar.ex:139
+#: lib/todo_desktopapp/menu_bar.ex:30
+#: lib/todo_desktopapp/menu_bar.ex:178
 #, elixir-autogen, elixir-format
 msgid "Open About"
 msgstr "Acerca de"
 
-#: lib/todo_desktopapp/menu_bar.ex:25
-#: lib/todo_desktopapp/menu_bar.ex:133
+#: lib/todo_desktopapp/menu_bar.ex:26
+#: lib/todo_desktopapp/menu_bar.ex:172
 #, elixir-autogen, elixir-format
 msgid "Quit"
 msgstr "Salir"
 
-#: lib/todo_desktopapp/menu_bar.ex:28
-#: lib/todo_desktopapp/menu_bar.ex:138
+#: lib/todo_desktopapp/menu_bar.ex:29
+#: lib/todo_desktopapp/menu_bar.ex:177
 #, elixir-autogen, elixir-format
 msgid "Show Notification"
 msgstr "Mostrar Notificación"
 
-#: lib/todo_desktopapp/menu_bar.ex:75
+#: lib/todo_desktopapp/menu_bar.ex:113
 #, elixir-autogen, elixir-format
 msgid "Notification from Todolist WebUI Desktopapp!"
 msgstr "Notificación desde Todoapp de escritorio con interfaz de usuario web"
@@ -110,7 +110,7 @@ msgstr "Lista de tareas"
 msgid "Show/Edit Todo"
 msgstr "Mostrar/Editar tarea"
 
-#: lib/todo_desktopapp_web/live/home_live.ex:321
+#: lib/todo_desktopapp_web/live/home_live.ex:350
 #, elixir-autogen, elixir-format
 msgid "Bulk delete successfully performed!"
 msgstr "¡Eliminación masiva realizada exitosamente!"
@@ -131,8 +131,8 @@ msgstr "Eliminar marcados"
 msgid "Description ..."
 msgstr "Descripción ..."
 
-#: lib/todo_desktopapp_web/live/home_live.ex:312
-#: lib/todo_desktopapp_web/live/home_live.ex:325
+#: lib/todo_desktopapp_web/live/home_live.ex:341
+#: lib/todo_desktopapp_web/live/home_live.ex:354
 #, elixir-autogen, elixir-format
 msgid "Error deleting Todo!"
 msgstr "¡Error al eliminar Todo!"
@@ -154,17 +154,17 @@ msgstr "Buscar Tarea ..."
 msgid "Title ..."
 msgstr "Título ..."
 
-#: lib/todo_desktopapp_web/live/home_live.ex:299
+#: lib/todo_desktopapp_web/live/home_live.ex:328
 #, elixir-autogen, elixir-format
 msgid "Title:"
 msgstr "Título:"
 
-#: lib/todo_desktopapp_web/live/home_live.ex:286
+#: lib/todo_desktopapp_web/live/home_live.ex:315
 #, elixir-autogen, elixir-format
 msgid "Todo created successfully!"
 msgstr "¡Tarea creada exitosamente!"
 
-#: lib/todo_desktopapp_web/live/home_live.ex:307
+#: lib/todo_desktopapp_web/live/home_live.ex:336
 #, elixir-autogen, elixir-format
 msgid "Todo successfully deleted!"
 msgstr "¡Tarea eliminada exitosamente!"
@@ -272,12 +272,6 @@ msgstr "Sí, bórralas"
 msgid "Are you sure you want to delete this Todo with title"
 msgstr "¿Estás seguro de que deseas eliminar esta tarea pendiente con título"
 
-#: lib/todo_desktopapp/menu_bar.ex:23
-#: lib/todo_desktopapp/menu_bar.ex:131
-#, elixir-autogen, elixir-format
-msgid "Create/Restore Backup"
-msgstr "Crear/Restaurar Respaldo"
-
 #: lib/todo_desktopapp_web/live/edit_live.ex:25
 #: lib/todo_desktopapp_web/live/home_live.ex:26
 #, elixir-autogen, elixir-format
@@ -303,13 +297,15 @@ msgid "Save/Restore"
 msgstr "Guardar/Restaurar"
 
 #: lib/todo_desktopapp_web/live/edit_live.ex:175
-#: lib/todo_desktopapp_web/live/home_live.ex:253
+#: lib/todo_desktopapp_web/live/home_live.ex:229
+#: lib/todo_desktopapp_web/live/home_live.ex:282
 #, elixir-autogen, elixir-format
 msgid "The backup has been restored successfully!"
 msgstr "¡La copia de seguridad se ha restaurado correctamente!"
 
 #: lib/todo_desktopapp_web/live/edit_live.ex:187
-#: lib/todo_desktopapp_web/live/home_live.ex:265
+#: lib/todo_desktopapp_web/live/home_live.ex:213
+#: lib/todo_desktopapp_web/live/home_live.ex:294
 #, elixir-autogen, elixir-format
 msgid "The backup was successful!"
 msgstr "¡La copia de seguridad se realizó correctamente!"
@@ -319,3 +315,25 @@ msgstr "¡La copia de seguridad se realizó correctamente!"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Cancel Backup"
 msgstr "Cancelar Respaldo"
+
+#: lib/todo_desktopapp/menu_bar.ex:23
+#: lib/todo_desktopapp/menu_bar.ex:169
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Create Backup"
+msgstr "Crear Respaldo"
+
+#: lib/todo_desktopapp/menu_bar.ex:24
+#: lib/todo_desktopapp/menu_bar.ex:170
+#, elixir-autogen, elixir-format
+msgid "Restore Backup"
+msgstr "Restaurar Respaldo"
+
+#: lib/todo_desktopapp/menu_bar.ex:62
+#, elixir-autogen, elixir-format
+msgid "Select the folder where you want to save the Backup"
+msgstr "Selecciona la carpeta donde deseas guardar la copia de seguridad"
+
+#: lib/todo_desktopapp/menu_bar.ex:83
+#, elixir-autogen, elixir-format
+msgid "Select your Backup *zip file"
+msgstr "Selecciona tu archivo *zip de copia de seguridad"

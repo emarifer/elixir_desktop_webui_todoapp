@@ -16,178 +16,130 @@ defmodule TodoDesktopappWeb.HomeLive do
     >
       <Layouts.flash_group flash={@flash} />
 
-      <div :if={@backup}>
-        <div class="flex flex-col pt-20 sm:pt-32 justify-center text-center gap-6 sm:gap-12 mx-auto w-fit px-12 sm:px-48">
-          <div class="absolute top-2 left-2">
-            <Layouts.theme_toggle />
-          </div>
-          <div class="w-80 sm:w-96 flex flex-col gap-6 items-center justify-center">
-            <h1 class="text-2xl sm:text-3xl text-zinc-500 font-medium sm:font-bold">
-              {gettext("Enter the folder to Save/Restore the Backup")}
-            </h1>
-            <form
-              phx-submit="handle-backup"
-              class="flex flex-col gap-2.5 sm:gap-4 px-8 w-full"
-            >
-              <input
-                type="text"
-                class="input input-xs sm:input-sm w-full"
-                name="backup"
-                placeholder={gettext("Enter the path to the folder ...")}
-                required
-                autofocus
-              />
-              <label class="flex justify-end text-xs font-light gap-2">
-                {gettext("Restore:")}
-                <.input
-                  type="checkbox"
-                  name="restore"
-                  class="checkbox checkbox-success w-3.5 h-3.5 -mt-2"
-                />
-              </label>
-              <div class="flex justify-between">
-                <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">
-                  {gettext("Save/Restore")}
-                </button>
-                <button
-                  type="button"
-                  phx-click="cancel-backup"
-                  class="btn btn-error btn-xs sm:btn-sm btn-outline"
-                >
-                  {gettext("Cancel Backup")}
-                </button>
-              </div>
-            </form>
-          </div>
+      <div class="flex flex-col pt-10 sm:pt-20 justify-center text-center gap-6 sm:gap-12 mx-auto w-fit px-12 sm:px-48">
+        <div class="absolute top-2 left-2">
+          <Layouts.theme_toggle />
         </div>
-      </div>
+        <div class="w-80 sm:w-96 flex gap-6 items-center justify-center">
+          <h1 class="text-3xl sm:text-4xl text-zinc-500 font-bold">
+            {gettext("Todo List")}
+          </h1>
+          <img src="images/logo.png" alt="Logo" class="w-8 sm:w-12" />
+        </div>
 
-      <div :if={!@backup}>
-        <div class="flex flex-col pt-10 sm:pt-20 justify-center text-center gap-6 sm:gap-12 mx-auto w-fit px-12 sm:px-48">
-          <div class="absolute top-2 left-2">
-            <Layouts.theme_toggle />
-          </div>
-          <div class="w-80 sm:w-96 flex gap-6 items-center justify-center">
-            <h1 class="text-3xl sm:text-4xl text-zinc-500 font-bold">
-              {gettext("Todo List")}
-            </h1>
-            <img src="images/logo.png" alt="Logo" class="w-8 sm:w-12" />
-          </div>
-
-          <%!-- ↓↓ id={@form_id} ↓↓--%>
-          <.form
-            phx-submit="search"
-            for={@form}
-            class="flex justify-between items-center"
+        <%!-- ↓↓ id={@form_id} ↓↓--%>
+        <.form
+          phx-submit="search"
+          for={@form}
+          class="flex justify-between items-center"
+        >
+          <label
+            :if={length(@todos) > 1}
+            class="input input-xs sm:input-sm flex items-center-safe w-[264px] px-1"
           >
-            <label
-              :if={length(@todos) > 1}
-              class="input input-xs sm:input-sm flex items-center-safe w-[264px] px-1"
+            <svg
+              class="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
             >
-              <svg
-                class="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+              <g
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="2.5"
+                fill="none"
+                stroke="currentColor"
               >
-                <g
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  stroke-width="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </g>
-              </svg>
-              <.input
-                type="search"
-                id="search_form"
-                field={@form[:search]}
-                class="w-56 text-[9px] -translate-y-[5px] sm:translate-y-0 sm:text-xs"
-                placeholder={gettext("Search Todo ...")}
-                phx-hook=".ClearSearchInput"
-              />
-              <%!-- ↓↓↓ Web app only. Not for desktop app ↓↓↓ --%>
-              <script
-                :type={Phoenix.LiveView.ColocatedHook}
-                name=".ClearSearchInput"
-              >
-                export default {
-                  mounted() {
-                    this.el.addEventListener("search", () => {
-                      if (this.el.value == "") this.pushEvent("reset-search", {})
-                    })
-                  }
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <.input
+              type="search"
+              id="search_form"
+              field={@form[:search]}
+              class="w-56 text-[9px] -translate-y-[5px] sm:translate-y-0 sm:text-xs"
+              placeholder={gettext("Search Todo ...")}
+              phx-hook=".ClearSearchInput"
+            />
+            <%!-- ↓↓↓ Web app only. Not for desktop app ↓↓↓ --%>
+            <script
+              :type={Phoenix.LiveView.ColocatedHook}
+              name=".ClearSearchInput"
+            >
+              export default {
+                mounted() {
+                  this.el.addEventListener("search", () => {
+                    if (this.el.value == "") this.pushEvent("reset-search", {})
+                  })
                 }
-              </script>
-            </label>
-            <button
-              :if={!@search}
-              phx-click="delete_marked"
-              type="button"
-              title={gettext("Delete Marked")}
-              class="btn btn-xs sm:btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
-              data-title={gettext("Confirm")}
-              data-confirm={gettext("Are you sure you want to delete all the marked Todos?")}
-              data-ok={gettext("Yes, delete them")}
-              data-cancel={gettext("Cancel")}
-            >
-              <img src="images/bulk-delete.png" alt="Bulk Delete" class="w-6" />
-            </button>
-            <button
-              :if={@search}
-              type="reset"
-              title={gettext("Exit Search")}
-              class="btn btn-xs sm:btn-sm btn-outline btn-info flex items-center gap-1 w-fit px-1"
-              phx-click="reset-search"
-            >
-              <.icon class="bg-slate-400 w-4 mt-1" name="hero-arrow-uturn-left" />
-              <span class="hidden sm:block">{gettext("Exit Search")}</span>
-            </button>
-          </.form>
+              }
+            </script>
+          </label>
+          <button
+            :if={!@search}
+            phx-click="delete_marked"
+            type="button"
+            title={gettext("Delete Marked")}
+            class="btn btn-xs sm:btn-sm btn-outline btn-ghost border-slate-500 px-1.5"
+            data-title={gettext("Confirm")}
+            data-confirm={gettext("Are you sure you want to delete all the marked Todos?")}
+            data-ok={gettext("Yes, delete them")}
+            data-cancel={gettext("Cancel")}
+          >
+            <img src="images/bulk-delete.png" alt="Bulk Delete" class="w-6" />
+          </button>
+          <button
+            :if={@search}
+            type="reset"
+            title={gettext("Exit Search")}
+            class="btn btn-xs sm:btn-sm btn-outline btn-info flex items-center gap-1 w-fit px-1"
+            phx-click="reset-search"
+          >
+            <.icon class="bg-slate-400 w-4 mt-1" name="hero-arrow-uturn-left" />
+            <span class="hidden sm:block">{gettext("Exit Search")}</span>
+          </button>
+        </.form>
 
-          <div class="flex flex-col gap-12">
-            <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller pr-2">
-              <.live_component
-                :for={todo <- @todos}
-                module={TodoItemComponent}
-                id={todo.id}
-                todo={todo}
-              />
-            </ul>
+        <div class="flex flex-col gap-12">
+          <ul class="w-full flex flex-col gap-2 overflow-y-auto max-h-64 scroller pr-2">
+            <.live_component
+              :for={todo <- @todos}
+              module={TodoItemComponent}
+              id={todo.id}
+              todo={todo}
+            />
+          </ul>
 
-            <p :if={length(@todos) == 0} class="text-sm font-light text-lime-400">
-              {gettext("There are no Todos to display")}
-            </p>
+          <p :if={length(@todos) == 0} class="text-sm font-light text-lime-400">
+            {gettext("There are no Todos to display")}
+          </p>
 
-            <form
-              :if={!@search}
-              phx-submit="add"
-              class="flex flex-col gap-2.5 sm:gap-4 px-8 w-full -mt-6 sm:mt-0"
-            >
-              <input
-                type="text"
-                class="input input-xs sm:input-sm w-full"
-                name="title"
-                placeholder={gettext("Title ...")}
-                required
-                autofocus
-              />
-              <input
-                type="text"
-                class="input input-xs sm:input-sm w-full"
-                name="description"
-                placeholder={gettext("Description ...")}
-                required
-              />
-              <div class="flex justify-end">
-                <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">
-                  {gettext("Create")}
-                </button>
-              </div>
-            </form>
-          </div>
+          <form
+            :if={!@search}
+            phx-submit="add"
+            class="flex flex-col gap-2.5 sm:gap-4 px-8 w-full -mt-6 sm:mt-0"
+          >
+            <input
+              type="text"
+              class="input input-xs sm:input-sm w-full"
+              name="title"
+              placeholder={gettext("Title ...")}
+              required
+              autofocus
+            />
+            <input
+              type="text"
+              class="input input-xs sm:input-sm w-full"
+              name="description"
+              placeholder={gettext("Description ...")}
+              required
+            />
+            <div class="flex justify-end">
+              <button type="submit" class="btn btn-ghost btn-xs sm:btn-sm btn-outline">
+                {gettext("Create")}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -200,12 +152,35 @@ defmodule TodoDesktopappWeb.HomeLive do
 
     # IO.inspect(Application.get_env(:todo_desktopapp, :pass_zip), label: "PASS_ZIP")
 
-    {:ok, init_search_form(socket) |> assign(:backup, nil)}
+    {:ok, init_search_form(socket)}
   end
 
   @impl true
-  def handle_info(:backup, socket) do
-    {:noreply, assign(socket, :backup, true) |> push_patch(to: ~p"/")}
+  def handle_info({:backup, path}, socket) do
+    case generate_backup(path) do
+      {res, 0} when is_binary(res) ->
+        socket = put_flash(socket, :info, gettext("The backup was successful!"))
+        {:noreply, socket}
+
+      {err, _} ->
+        socket = put_flash(socket, :error, err)
+        {:noreply, socket}
+    end
+  end
+
+  def handle_info({:restore, path}, socket) do
+    case restore_backup(path) do
+      {res, 0} when is_binary(res) ->
+        handle_locales()
+        socket = put_flash(socket, :info, gettext("The backup has been restored successfully!"))
+        {:noreply, socket |> push_navigate(to: ~p"/")}
+
+      {err, _} ->
+        handle_locales()
+
+        socket = put_flash(socket, :error, err)
+        {:noreply, socket}
+    end
   end
 
   def handle_info(:about, socket) do
@@ -240,40 +215,6 @@ defmodule TodoDesktopappWeb.HomeLive do
      socket
      |> init_search_form()
      |> push_patch(to: ~p"/")}
-  end
-
-  def handle_event("handle-backup", %{"backup" => path, "restore" => restore}, socket) do
-    app_name = Atom.to_string(Application.get_application(__MODULE__))
-    path = Path.join(String.trim_trailing(path, "/"), app_name)
-
-    if String.to_atom(restore) do
-      case restore_backup(path) do
-        {res, 0} when is_binary(res) ->
-          handle_locales()
-          socket = put_flash(socket, :info, gettext("The backup has been restored successfully!"))
-          {:noreply, assign(socket, :backup, nil) |> push_navigate(to: ~p"/")}
-
-        {err, _} ->
-          handle_locales()
-
-          socket = put_flash(socket, :error, err)
-          {:noreply, assign(socket, :backup, nil)}
-      end
-    else
-      case generate_backup(path) do
-        {res, 0} when is_binary(res) ->
-          socket = put_flash(socket, :info, gettext("The backup was successful!"))
-          {:noreply, assign(socket, :backup, nil)}
-
-        {err, _} ->
-          socket = put_flash(socket, :error, err)
-          {:noreply, assign(socket, :backup, nil)}
-      end
-    end
-  end
-
-  def handle_event("cancel-backup", _params, socket) do
-    {:noreply, assign(socket, :backup, nil)}
   end
 
   def handle_event(
