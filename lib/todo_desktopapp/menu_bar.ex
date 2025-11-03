@@ -81,9 +81,13 @@ defmodule TodoDesktopapp.MenuBar do
   def handle_event("restore", menu) do
     wx = :wx.new()
     dialog = :wxFileDialog.new(wx)
-    :wxFileDialog.setTitle(dialog, gettext("Select your Backup *zip file"))
+    :wxFileDialog.setTitle(dialog, gettext("Select your Backup *.zip file"))
     :wxFileDialog.setPath(dialog, System.user_home() <> "/*")
-    :wxFileDialog.setWildcard(dialog, "Backup File (todo_desktopapp.zip)|todo_desktopapp.zip")
+
+    :wxFileDialog.setWildcard(
+      dialog,
+      "#{gettext("Backup File")} (todo_desktopapp.zip)|todo_desktopapp.zip"
+    )
 
     case :wxFileDialog.showModal(dialog) do
       5100 ->

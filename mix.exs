@@ -34,12 +34,12 @@ defmodule TodoDesktopapp.MixProject do
   def application do
     [
       mod: {TodoDesktopapp.Application, []},
-      env: [
-        pass_zip:
-          :crypto.strong_rand_bytes(32)
-          |> Base.encode64()
-          |> binary_part(0, 32)
-      ],
+      # env: [
+      #   pass_zip:
+      #     :crypto.strong_rand_bytes(32)
+      #     |> Base.encode64()
+      #     |> binary_part(0, 32)
+      # ],
       extra_applications: [:logger, :runtime_tools]
     ]
   end

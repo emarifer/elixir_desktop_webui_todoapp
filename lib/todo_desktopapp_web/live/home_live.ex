@@ -158,27 +158,28 @@ defmodule TodoDesktopappWeb.HomeLive do
   @impl true
   def handle_info({:backup, path}, socket) do
     case generate_backup(path) do
-      {res, 0} when is_binary(res) ->
+      {:ok, _} ->
         socket = put_flash(socket, :info, gettext("The backup was successful!"))
         {:noreply, socket}
 
-      {err, _} ->
-        socket = put_flash(socket, :error, err)
+      {:error, reason} ->
+        socket = put_flash(socket, :error, "#{gettext("Something went wrong:")} #{reason}")
         {:noreply, socket}
     end
   end
 
   def handle_info({:restore, path}, socket) do
     case restore_backup(path) do
-      {res, 0} when is_binary(res) ->
+      {:ok, _} ->
         handle_locales()
+
         socket = put_flash(socket, :info, gettext("The backup has been restored successfully!"))
         {:noreply, socket |> push_navigate(to: ~p"/")}
 
-      {err, _} ->
+      {:error, reason} ->
         handle_locales()
 
-        socket = put_flash(socket, :error, err)
+        socket = put_flash(socket, :error, "#{gettext("Something went wrong:")} #{reason}")
         {:noreply, socket}
     end
   end
