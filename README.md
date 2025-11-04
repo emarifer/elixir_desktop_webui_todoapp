@@ -54,6 +54,54 @@
 
     This command will unzip the folder containing the application to the given path. This creates a `self-contained` folder containing everything needed to run the application on any system without having to install any dependencies: the application binaries, the `BEAM VM` and `runtime`, all the necessary `graphics libraries` and dependencies for your OS, and the `assets` used by any Phoenix application. It also generates a launcher (`*.desktop` file in Linux) that will make the application appear in your start menu. Likewise, (on Linux) another launcher will be created in `$HOME/.config/autostart/` that will launch the application when you log in to your system (but you can remove it if you don't want this behavior).
 
+    Also, when the application starts for the first time, the `SQLite3` database files will be created (in the appropriate path depending on your OS) and the connection to the database will be established. This is the standard behavior of a Phoenix application with an `SQLite3` database; however, this application is configured to also perform the `migrations` that create the necessary tables within the database upon startup, which is more suitable for a desktop application.
+  
+- #### <ins>Modifying the application (Dev mode)</ins>
+
+  If you've installed all the requirements outlined in the previous steps and want to modify the application, to improve your development experience you can install 3 excellent extensions if you work with VScode: [`ElixirLS`](https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls), [`phoenixframework`](https://marketplace.visualstudio.com/items?itemName=phoenixframework.phoenix) and [`Tailwind CSS IntelliSense`](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss), and follow the instructions to correctly configure your work environment. Also, keep in mind what we said in the second note of the `Prerequisites` section because in the new version of Phoenix (`>= 1.8`) in VScode and other code editors, the autocomplete function of the TailwindCSS/daisyUI utility classes does not work and you will have to make the modifications indicated in that note.
+
+  Having made these considerations, clone the repository and from the terminal enter the project root:
+
+  ```
+  $ git clone https://github.com/emarifer/elixir_desktop_webui_todoapp.git
+  $ cd elixir_desktop_webui_todoapp
+  ```
+
+  Now you can download the Elixir and JavaScript dependencies (Tailwind CSS/daisyUI), create the database, and perform migrations, all with a single command:
+
+  ```
+  $ mix setup
+  ```
+
+  And now you can start the application in development mode with:
+
+  ```
+  $ mix phx.server
+  ```
+
+  You can also do it using Elixir's interactive shell if you prefer to run something in IEx:
+
+  ```
+  $ iex -S mix
+  ```
+
+  If you want to access the user interface `dev tools`, just like you would when developing a web application, you can do so with this trick: copy the address similar to `http://localhost:4000?k=IOIQTAREYWKCO3MMP3RBSXS62RIFYVS5RRLH7HYKTM7RGBWVDMKQ` that appears in the terminal and paste it into your browser's address bar. Now you can open the `dev tools` in your browser!
+
+  > <ins>**Hacky Trick:**</ins> If you want to access the `dev tools` when starting the application in `production/release`, you can do the following: navigate to the folder where you already have the application installed using the terminal, select the shell script `Todolist_WebUI_Desktopapp`; if you run it, the application will start without being linked to the current console process, but if you pass it the `start` argument (as when running any `Elixir Release`), then it will be linked:
+
+    ``` 
+    $ ./Todolist_WebUI_Desktopapp start # in $HOME/.local/bin/Todolist_WebUI_Desktopapp/, e.g. from Linux
+    ```
+  > Since the process is linked to the current console, you'll see all its `logs`. Copy the address you see in them into your browser and open its `dev tools` 😜.
+
+  If you're using `Linux-Ubuntu` (or derivatives), it's quite possible that when you open the application window, it will be blank. This is a known issue that can be resolved by exporting the following environment variable for the current terminal session:
+
+  ```
+  $ export WEBKIT_DISABLE_COMPOSITING_MODE=1
+  ```
+
+  Every time you save changes to your code, the application window will reload.
+
 ---
 
 ### 📚 Learn more
@@ -61,6 +109,7 @@
 * Official website: https://www.phoenixframework.org/
 * Guides: https://hexdocs.pm/phoenix/overview.html
 * Docs: https://hexdocs.pm/phoenix
+* Elixir Guides: https://hexdocs.pm/elixir/introduction.html
 * Forum: https://elixirforum.com/c/phoenix-forum
 * Source: https://github.com/phoenixframework/phoenix
 * Phoenix LiveView: https://hexdocs.pm/phoenix_live_view/welcome.html
@@ -69,6 +118,7 @@
 * Desktop (elixir-desktop): https://hexdocs.pm/desktop/readme.html
 * Deployment (elixir-desktop): https://github.com/elixir-desktop/deployment
 * Gettext: https://hexdocs.pm/gettext/Gettext.html
+* wx the erlang binding of wxWidgets: https://www.erlang.org/doc/apps/wx/chapter.html
 
 ---
 

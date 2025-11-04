@@ -318,11 +318,17 @@ end
 # REFERENCES:
 # Translate Ecto validation messages ==>
 # https://stackoverflow.com/questions/44183906/translate-ecto-validation-messages#53120162
+# Ecto.Changeset.validate_length/3 error message: replacing %{count} ==>
+# https://elixirforum.com/t/ecto-changeset-validate-length-3-error-message-replacing-count/19175
+#
 # USING `GETTEXT` (Domains, Pluralization, etc.) ==>
 # https://hexdocs.pm/gettext/Gettext.html#module-domains
 # https://hexdocs.pm/gettext/Gettext.html#module-pluralization
 # https://hexdocs.pm/gettext/Gettext.html#dngettext/6
 # https://hexdocs.pm/gettext/Gettext.html#dgettext/4
+#
+# Generate a random string as a secret key ==>
+# https://stackoverflow.com/questions/41735442/phoenix-framework-generate-random-string-using-the-controller#41735582
 #
 # ABOUT THE COLOCATED HOOKS ==>
 # https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.ColocatedHook.html

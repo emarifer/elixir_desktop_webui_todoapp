@@ -192,6 +192,18 @@ defmodule TodoDesktopapp.MenuBar do
   end
 end
 
-# GETTEXT - LOCALES:
+# GETTEXT - LOCALES (COMMANDS):
 # mix gettext.extract
 # mix gettext.merge priv/gettext
+
+# ==================================
+
+# REFERENCES:
+# https://hexdocs.pm/phoenix_pubsub/2.2.0/Phoenix.PubSub.html
+# https://gist.github.com/rlipscombe/5f400451706efde62acbbd80700a6b7c
+# https://github.com/julianferrone/seven_guis
+# https://github.com/lawik/native-ui-sample
+# https://github.com/kaiyote/ex_notepad/blob/0df1c3e9d56c9c4b6e9a3ca8a61e1e6c40e6a0b3/lib/ex_notepad/file.ex#L62
+# https://www.erlang.org/doc/apps/wx/wxdirdialog
+# https://www.erlang.org/doc/apps/wx/wxfiledialog
+# https://arifishaq.wordpress.com/wp-content/uploads/2017/12/wxerlang-getting-started.pdf

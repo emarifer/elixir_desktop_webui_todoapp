@@ -64,10 +64,23 @@ defmodule TodoDesktopappWeb.Utils.HandleBackup do
   end
 end
 
-# files = ["todo_desktopapp_dev.db", "todo_desktopapp_dev.db-shm", "todo_desktopapp_dev.db-wal"
-# files = files |> Enum.map(&String.to_charlist/1)
-# {ok, filename} = :zip.create("file.zip", files, cwd: "/path/to/dir")
-# :zip.unzip(~c"file.zip", [{:cwd, ~c"#{File.cwd!()}/file/"}])
+# REFERENCES:
+# https://stackoverflow.com/questions/43650239/get-application-name-in-umbrella-project
+# https://elixirforum.com/t/how-to-use-if-or-other-condition-for-dev-or-prod/16235/5
+# https://elixirforum.com/t/mix-release-does-not-include-mix-is-there-a-way-to-use-mix-env/53137/4
+# https://elixirforum.com/t/how-to-get-root-project-directory-from-a-library/30316
+# https://nts.strzibny.name/create-zip-in-elixir/
+# https://www.erlang.org/doc/apps/stdlib/zip.html
+# https://elixirforum.com/t/unzip-zip-file-to-a-folder-using-zip-module/14954
+
+# ===================================================================
+
+# ALTERNATIVE CODE:
+# [https://hexdocs.pm/elixir/1.19.2/System.html#cmd/3
+# https://stackoverflow.com/questions/49952153/elixir-shell-command-with-wildcard-failing-when-using-system-cmd
+# https://askubuntu.com/questions/342900/compressing-folders-with-password-via-command-line
+# https://stackoverflow.com/questions/9710141/create-zip-file-and-ignore-directory-structure#9710181
+# (REFERENCES)] ==>
 
 # with {res_mkir, 0} when is_binary(res_mkir) <-
 #        System.cmd("/bin/sh", ["-c", "mkdir #{path}"], stderr_to_stdout: true),

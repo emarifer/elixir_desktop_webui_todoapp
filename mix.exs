@@ -44,6 +44,10 @@ defmodule TodoDesktopapp.MixProject do
     ]
   end
 
+  # ↑↑↑ REFERENCES ↑↑↑
+  # Generate a random string as a secret key ==>
+  # https://stackoverflow.com/questions/41735442/phoenix-framework-generate-random-string-using-the-controller#41735582
+
   def cli do
     [
       preferred_envs: [precommit: :test]
