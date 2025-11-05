@@ -6,9 +6,9 @@
 
 <br />
 
-<img src="screenshot/screenshot_27-10-2025_09-40.gif" width="66%">
+<img src="screenshot/screenshot_05-11-2025 09-56.gif" width="70%">
 
-<br />
+<br /><br />
   
 ![GitHub License](https://img.shields.io/github/license/emarifer/elixir_desktop_webui_todoapp) ![Static Badge](https://img.shields.io/badge/Elixir-%3E=1.18-6e4a7e) ![Static Badge](https://img.shields.io/badge/Erlang/OTP-%3E=27-B83998) ![Static Badge](https://img.shields.io/badge/PhoenixFramework-%3E=1.8-fd4f00)
 
@@ -18,8 +18,19 @@
 
 ### 🚀 Features
 
+  - [x] **desktop (elixir-desktop):** [`Desktop`](https://github.com/elixir-desktop/desktop) is a library that can encapsulate or wrap a `Phoenix web application` and render it in a `wxWindow`. `wxWindow`, in turn, is part of the `Erlang` [`wx`](https://www.erlang.org/doc/apps/wx/chapter.html) library, which is a binding of `wxWidgets` (originally written in `C++`) for Erlang, allowing the building of local-first apps for `Windows`, `macOS`, `Linux`, `iOS`, and `Android` using `Phoenix LiveView` and `Elixir`.
 
-> 🚧 This is a work-in-progress section of README.md. You'll see it finished soon.
+  - [x] **Menu bar:** Similar to native applications.
+
+  - [x] **Notifications:** Both native, as well as in the form of toasts ([`flash messages`](https://hexdocs.pm/phoenix/controllers.html#flash-messages)), provided by the Phoenix framework, or `pop-ups` obtained through the `JavaScript` library [`SweetAlert2`](https://sweetalert2.github.io/).
+
+  - [x] **Ability to select the app's language:** Enabled in the menu bar allows complete translation of the application using the Elixir [`Gettext`](https://hexdocs.pm/gettext/Gettext.html) library.
+
+  - [x] **Data persistence in a SQLite3 database:** This database stores the `Todos` and the application language selected by the user. The application performs `CRUD` operations on this database. SQLite databases are ideal for the organized storage of desktop application data.
+
+  - [x] **Ability to create/restore data backups:** The database files are compressed into a `zip file` to/from the path chosen by the user.
+
+  - [x] **Using native dialogs:** The `desktop` library does not provide a direct way to use `native dialogs`, but by using [`wxDirDialog`](https://www.erlang.org/doc/apps/wx/wxdirdialog) and [`wxFileDialog`](https://www.erlang.org/doc/apps/wx/wxfiledialog) from the Erlang `wx` library, we can call them to select the folder where the data backups are stored or the backup file, respectively.
 
 ---
 
@@ -92,7 +103,7 @@
     ``` 
     $ ./Todolist_WebUI_Desktopapp start # in $HOME/.local/bin/Todolist_WebUI_Desktopapp/, e.g. from Linux
     ```
-  > Since the process is linked to the current console, you'll see all its `logs`. Copy the address you see in them into your browser and open its `dev tools` 😜.
+  > Since the process is linked to the current console, you'll see all its `logs`. Copy the address you see in them into your browser and open its `dev tools` 😉.
 
   If you're using `Linux-Ubuntu` (or derivatives), it's quite possible that when you open the application window, it will be blank. This is a known issue that can be resolved by exporting the following environment variable for the current terminal session:
 
@@ -118,6 +129,7 @@
 * Desktop (elixir-desktop): https://hexdocs.pm/desktop/readme.html
 * Deployment (elixir-desktop): https://github.com/elixir-desktop/deployment
 * Gettext: https://hexdocs.pm/gettext/Gettext.html
+* Phoenix PubSub: https://hexdocs.pm/phoenix_pubsub/Phoenix.PubSub.html#content
 * wx the erlang binding of wxWidgets: https://www.erlang.org/doc/apps/wx/chapter.html
 
 ---
